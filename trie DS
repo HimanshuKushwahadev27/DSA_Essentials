@@ -1,0 +1,56 @@
+
+
+
+import java.util.Map;
+import java.util.HashMap;
+
+class TrieNode{
+    Map<Character,TrieNode> children=new HashMap<>();
+    boolean isEnd=false;
+    
+}
+class Trie {
+       private TrieNode root;
+       
+    public Trie() {
+        // Implement Trie
+        root=new TrieNode();
+        
+    }
+
+    // Insert a word into the Trie
+    public void insert(String word) {
+        
+        TrieNode curr=root;
+        for(char ch:word.toCharArray()){
+            curr=curr.children.computeIfAbsent(ch,c->new TrieNode());
+        }
+        curr.isEnd=true;
+    }
+
+    // Search for a word in the Trie
+    public boolean search(String word) {
+        TrieNode curr=root;
+        for(char ch:word.toCharArray()){
+            if(!curr.children.containsKey(ch)){
+                return false;
+            }
+            curr=curr.children.get(ch);
+            
+        }return curr.isEnd;
+    }
+
+    // Check if a prefix exists in the Trie
+    public boolean isPrefix(String word) {
+         TrieNode curr=root;
+        for(char ch:word.toCharArray()){
+            if(!curr.children.containsKey(ch)){
+                return false;
+            }
+            curr=curr.children.get(ch);
+            
+        }return true;
+    }
+}
+
+
