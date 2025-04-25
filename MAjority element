@@ -1,0 +1,17 @@
+//you can also sort the array and then use binary search to kee pthe track of element that comes more than arr.length/2 times;
+class Solution {
+    static int majorityElement(int arr[]) {
+        // code here
+       HashMap<Integer,Integer> hm= new HashMap<>();
+       
+       for(int i:arr){
+           hm.put(i,hm.getOrDefault(i,0)+1);
+       }
+       int ans=0;
+       for(int i:arr){
+           if(hm.get(i)>arr.length/2){
+               return i;
+           }
+       }return -1;
+    }
+}
