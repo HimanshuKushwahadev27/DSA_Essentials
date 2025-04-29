@@ -1,0 +1,47 @@
+//i have used brute force approach meaning countin number of ones ,zeros and twos and the add them into a new linked list and the nprint it 
+//we can also do this in a single traveersal like inserting the elements while we are getting them in the orrder
+class Solution {
+    static Node segregate(Node head) {
+        // code here
+        if(head==null){
+            return null;
+        }
+       Node curr=head;
+       Node temp=null;
+      int one=0;
+      int second=0;
+      int zero=0;
+      while(curr!=null){
+          if(curr.data==1){
+              one++;
+          } if(curr.data==2){
+              second++;
+      }if(curr.data==0){
+          zero++;
+      }curr=curr.next;
+    }
+    Node dummy=new Node(-1);
+    temp=dummy;
+    
+    while(zero>0){
+        Node newNode=new Node(0);
+        temp.next=newNode;
+        temp=newNode;
+        zero--;
+    }
+    while(one>0){
+        Node newNode=new Node(1);
+        temp.next=newNode;
+        temp=newNode;
+        one--;
+    }while(second>0){
+        Node newNode=new Node(2);
+        temp.next=newNode;
+        temp=newNode;
+        second--;
+    }
+    return dummy.next;
+    
+  }
+}
+
