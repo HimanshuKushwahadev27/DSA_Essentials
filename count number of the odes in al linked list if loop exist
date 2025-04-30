@@ -1,0 +1,32 @@
+
+class Solution {
+    // Function to find the length of a loop in the linked list.
+    public int count(Node slow){
+        Node temp=slow;
+        int cout=1;
+        
+        while(temp.next!=slow){
+            cout++;
+            temp=temp.next;
+        }return cout;
+    }
+    public int countNodesinLoop(Node head) {
+        // code here.
+        if (head==null||head.next==null){
+            return 0;
+        }
+        Node curr=head;
+        Node fast=head;
+    
+        
+        while(fast!=null&&fast.next!=null){
+            curr=curr.next;
+            fast=fast.next.next;
+    
+        if(curr==fast){
+            return count(curr);
+        }}
+        return 0;
+        
+    }
+}
