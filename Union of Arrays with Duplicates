@@ -1,0 +1,14 @@
+class Solution {
+    public static int findUnion(int a[], int b[]) {
+        // code here
+      HashMap<Integer,Integer> hm=new HashMap<>();
+      
+      for(int i=0;i<Math.max(a.length,b.length);i++){
+          if(i<a.length){
+              hm.put(a[i],hm.getOrDefault(a[i],0)+1);
+          }if(i<b.length){
+             hm.put(b[i],hm.getOrDefault(b[i],0)+1);
+          }
+      }return hm.size();
+    }
+}
