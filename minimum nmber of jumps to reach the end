@@ -1,0 +1,32 @@
+class Solution {
+    static int helper(int []arr){
+        if(arr.length<=1&&arr[0]!=0){
+            return 0;
+        }int n=arr.length;
+        
+        if(arr[0]==0){
+            return -1;
+        }
+        int maxRange=arr[0];
+        int step=arr[0];
+        int jump=1;
+        
+        for(int i=1;i<n;i++){
+            if(i==arr.length-1){
+                return jump;
+            }maxRange=Math.max(maxRange,i+arr[i]);
+            step--;
+            if(step==0){
+                jump++;
+                if(i>=maxRange){
+                    return -1;
+                }step=maxRange-i;
+            }
+        }
+        return jump;
+    }
+    static int minJumps(int[] arr) {
+        // code here
+        return helper(arr);
+    }
+}
