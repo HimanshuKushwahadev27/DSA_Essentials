@@ -1,0 +1,15 @@
+class Solution {
+    int maxSubarraySum(int[] arr) {
+        // Your code here
+        int sum=arr[0];
+        int current=arr[0];
+        keeping track of sumsofar and updating sumsofar (curreent)
+        for(int i=1;i<arr.length;i++){
+            current=Math.max(arr[i],arr[i]+current);
+  //taking maximum of previous sum and current
+
+            sum=Math.max(current,sum);
+        }return sum;
+        
+    }
+}
