@@ -1,0 +1,50 @@
+
+class Solution {
+    boolean isPrime(int num){
+        if(num<=1){
+            return false;
+        }
+        if(num==2){
+            return true;
+        }
+        if(num%2==0){
+            return false;
+        }
+        for(int i=3;i<=Math.sqrt(num);i+=2){
+            if(num%i==0){
+                return false;
+            }
+        }return true;
+    }
+    public int nextPrime(int num){
+        int lower =num;
+        int upper=num;
+        
+        while(lower>=2&&!isPrime(lower)){
+            lower--;
+        }
+        while(!isPrime(upper)){
+            upper++;
+        }
+        int ldist=(lower>=2)?num-lower:Integer.MAX_VALUE;
+        int udist=upper-num;
+        
+        if(ldist<=udist){
+            return lower;
+        }return upper;
+    }
+    Node primeList(Node head) {
+        // code here
+        if(head==null){
+            return null;
+        }
+        Node curr=head;
+        while(curr!=null){
+            if(isPrime(curr.val)==false){
+                int n=nextPrime(curr.val);
+                curr.val=n;
+            }
+            curr=curr.next;
+        }return head;
+    }
+}
