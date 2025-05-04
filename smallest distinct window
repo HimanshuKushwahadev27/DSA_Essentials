@@ -1,0 +1,43 @@
+class Solution {
+    public int findSubString(String str) {
+        // code here
+        if(str.length()==0){
+            return 0;
+        }
+        //getting total distinct element
+        
+        Set<Character>uniq=new HashSet<>();
+        for(int i=0;i<str.length();i++){
+            uniq.add(str.charAt(i));
+        }
+       
+        int req=uniq.size();
+        int formed=0;
+        int left=0;
+        int min=Integer.MAX_VALUE;
+         HashMap<Character,Integer> hm=new HashMap<>();
+        
+        for(int i=0;i<str.length();i++){
+            hm.put(str.charAt(i),hm.getOrDefault(str.charAt(i),0)+1);
+            //incrementing formed if we get a single element
+            if(hm.get(str.charAt(i))==1){
+                formed++;
+            }//while our formed doesnt become required string length
+            
+            while(formed==req){
+            //updating new minimum
+                if(i-left+1<min){
+                    min=i-left+1;
+                }
+                //decreasing from left
+                char cleft=str.charAt(left);
+                hm.put(cleft,hm.get(cleft)-1);
+                if(hm.get(cleft)==0){
+                    formed--;
+                }
+                left++;
+            }
+        }
+        return min;
+    }
+}
