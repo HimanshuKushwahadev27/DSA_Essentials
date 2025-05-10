@@ -1,0 +1,46 @@
+class Pair implements Comparable<Pair>{
+    int first;
+    int second;
+    Pair(int first,int second){
+        this.first=first;
+        this.second=second;
+    }
+    //sort on the basis of first interval
+    public int compareTo(Pair e){
+        return Integer.compare(this.first,e.first);
+    }
+    
+}
+class Solution {
+    public List<int[]> mergeOverlap(int[][] arr) {
+        // Code here // Code here
+        ArrayList<Pair> al=new ArrayList<>();
+        
+        for(int[] e:arr){
+            al.add(new Pair(e[0],e[1]));
+        }
+        Collections.sort(al);
+        List<Pair> merged=new LinkedList<>();
+        
+        Pair curr=al.get(0);
+        
+        for(int i=1;i<al.size();i++){
+            Pair next=al.get(i);
+            //compare the currents second value and next first if next firsts comes under the currents second 
+            //then it means we have overlapping interval
+            if(curr.second>=next.first){
+                curr.second=Math.max(curr.second,next.second);
+            }else{//else just add the current intervals and update the current interval to next one 
+                merged.add(curr);
+                curr=next;
+            }
+        }
+        //add the last interval 
+        merged.add(curr);
+        List<int[]> me=new ArrayList<>();
+        
+        for(Pair n:merged){
+            me.add(new int[]{n.first,n.second});
+        }
+        return me;
+    }
