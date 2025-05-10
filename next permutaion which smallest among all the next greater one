@@ -1,0 +1,41 @@
+// User function Template for Java
+//we have to find next greater permutation whaich  smallest permutation among all the permutaion that is greater than the cureent one 
+
+class Solution {
+    void nextPermutation(int[] arr) {
+        // code here
+        int k=Integer.MIN_VALUE;
+        //finding pivot element (the greatest index at which the element is smaller then the nex element)
+        for(int i=0;i<arr.length-1;i++){
+            if(arr[i]<arr[i+1]){
+                k=Math.max(k,i);
+            }
+        }//if no element found meanin the array is sorted in dereasing order so sort in incerasing order return
+        if(k==Integer.MIN_VALUE){
+            Arrays.sort(arr);
+            return;
+        }
+        int indexmin=0;
+        //finding the smallest element just after the pivot whose value is larger then the current pivot
+        for(int i=k+1;i<arr.length;i++){
+            if(arr[i]>arr[k]){
+                indexmin=i;
+            }
+        }
+        //swapping pivot and the element foud 
+        int temp=arr[k];
+        arr[k]=arr[indexmin];
+        arr[indexmin]=temp;
+        
+        //reversing after the pivot index 
+        //to get the requires lexiograhic permutation
+        ArrayList<Integer> al=new ArrayList<>();
+        for(int i=arr.length-1;i>k;i--){
+            al.add(arr[i]);
+        }int num=0;
+        for(int i=k+1;i<arr.length;i++){
+            arr[i]=al.get(num);
+            num++;
+        }
+    }
+}
