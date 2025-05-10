@@ -1,0 +1,42 @@
+class Solution {
+    static int longestSubarray(int[] arr, int k) {
+        // Code Her
+       HashMap<Integer,Integer> hm=new HashMap<>();
+        int sum=0;
+        int res=0;
+        
+        for(int i=0;i<arr.length;i++){
+            //converting values less than and equal to k to -1 else 1
+            sum+=(arr[i]>k?1:-1);
+            //storing first occurence of the particular prefix sum 
+            if(!hm.containsKey(sum)){
+                hm.put(sum,i);
+            }
+        }//if hashmap contains sum -length of array
+        if(hm.containsKey(-arr.length)){
+            return 0;
+        }
+        //putting the -length sum and 
+        hm.put(-arr.length,arr.length);
+        //putting missing sum with value of previous ones 
+        //and updating non misssing values with min of current and previous values
+        for(int i=-arr.length+1;i<=arr.length;i++){
+            if(!hm.containsKey(i)){
+                hm.put(i,hm.get(i-1));
+            }else{
+                hm.put(i,Math.min(hm.get(i),hm.get(i-1)));
+            }
+        }sum=0;
+        //finding sum 
+        //and res
+        for(int i=0;i<arr.length;i++){
+             sum+=(arr[i]>k?1:-1);
+             
+             if(sum>0){
+                 res=i+1;
+             }else{
+                 res=Math.max(res,i-hm.get(sum-1));
+             }
+        }return res;
+    }
+}
