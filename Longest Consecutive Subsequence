@@ -1,0 +1,31 @@
+class Solution {
+
+    // Function to return length of longest subsequence of consecutive integers.
+    public int longestConsecutive(int[] arr) {
+        // code here\
+        Set<Integer> hm=new HashSet<>();
+        
+       for(int i=0;i<arr.length;i++){
+           hm.add(arr[i]);
+       }
+       int count1= 0;
+       for(int i=0;i<arr.length;i++){
+//if the current element exist and it is starting point 
+
+           if(hm.contains(arr[i]) && !hm.contains(arr[i]-1)){
+               int curr=arr[i];
+               int count=0;
+
+//while we are getting the just next element inside the hash set
+
+               while(hm.contains(curr)){
+                   hm.remove(curr);
+                   curr++;
+                   count++;
+               }
+               count1=Math.max(count1,count);
+           }
+           
+       }return count1;
+    }
+}
