@@ -1,0 +1,37 @@
+class Solution {
+    public int maxWater(int arr[]) {
+        // code here
+        int n=arr.length;
+        int []maxLeft=new int[n];
+        int []maxRight=new int[n];
+        
+        //fill maxLEft for eveery element taking the element itslfe for i==0
+        int currmax=0;
+        for(int i=0;i<n;i++){
+            currmax=Math.max(currmax,arr[i]);
+            if(i==0){
+               maxLeft[i]=arr[i]; 
+            }else{
+                maxLeft[i]=currmax;
+            }
+        }
+        currmax=0;
+        //filling maxRight for every element
+        //taking element itslef for i=n-1
+        for(int i=n-1;i>=0;i--){
+            currmax=Math.max(currmax,arr[i]);
+            if(i==n-1){
+                maxRight[i]=arr[i];
+            }else{
+                maxRight[i]=currmax;
+            }
+        }
+        int sum=0;
+        
+        for(int i=0;i<n;i++){
+            int waterHold=Math.min(maxLeft[i],maxRight[i])-arr[i];
+            sum+=waterHold;
+        }
+        return sum;
+    }
+}
