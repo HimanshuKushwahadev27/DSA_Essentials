@@ -1,0 +1,60 @@
+class Solution {
+    public int mostBooked(int n, int[][] meetings) {
+        // code here
+        
+        //sort meeting on the basis of the start time
+        
+        Arrays.sort(meetings, (a,b) -> Integer.compare(a[0],b[0]));
+        
+        //min heap to store availabe rooms while keeping track of smallest empty room
+        PriorityQueue<Integer> avaRooms=new PriorityQueue<>();
+        
+        for(int i=0;i<n;i++){
+            avaRooms.offer(i);
+        }
+        
+        //min heap of ongoing meetings
+        
+        PriorityQueue<long[]> occuRooms=new PriorityQueue<>((a,b) -> a[0]!=b[0] ? Long.compare(a[0],b[0]) : 
+             Integer.compare((int)a[1],(int)b[1]));
+             //endtime : room number
+        //keeping count of meeetings happens in room     
+        int [] count=new int[n];
+        
+        for(int []meeting:meetings){
+            int start=meeting[0];
+            int end=meeting[1];
+            
+          //freeing room whose meeting have eneded
+          
+            while(!occuRooms.isEmpty() && occuRooms.peek()[0]<=start){
+                int free=(int)occuRooms.poll()[1];
+                //adding free room in availabe
+                avaRooms.offer(free);
+            }
+            if(!avaRooms.isEmpty()){
+                int room=avaRooms.poll();
+                occuRooms.offer(new long[]{end,room});
+                count[room]++;
+            }else{
+                //we dont have rrroms to allot
+                long[] fin=occuRooms.poll();
+                long newStart=fin[0];
+                int room=(int) fin[1];
+                long newEnd=newStart+(end-start);
+                occuRooms.offer(new long[]{newEnd,room});
+                count[room]++;
+            }
+        }
+        int max=0;
+        int res=0;
+        for(int i=0;i<n;i++){
+            if(count[i]>max){
+                max=count[i];
+                res=i;
+            }
+        }
+        return res;
+        
+    }
+}
