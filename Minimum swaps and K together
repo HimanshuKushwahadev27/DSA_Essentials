@@ -1,0 +1,38 @@
+class Solution {
+    // Function for finding maximum and value pair
+    int minSwap(int[] arr, int k) {
+        // Complete the function
+        
+        int count=0;
+        int n = arr.length;
+        //counting all correct elements
+        for(int i=0;i<n;i++){
+            if(arr[i]<=k){
+                count++;
+            }
+        }
+        int bad=0;
+        //counting all bad elements in the range of correct elements
+        for(int i=0;i<count;i++){
+            if(arr[i]>k){
+                bad++;
+            }
+        }
+
+        int ans=bad;
+        int start=0;
+        int end=count;
+        while(end<n){
+            if(arr[start]>k){
+                bad--;
+            }
+            if(arr[end]>k){
+                bad++;
+            }
+            ans=Math.min(ans,bad);
+            end++;
+            start++;
+        }
+        return ans;
+    }
+}
