@@ -1,0 +1,26 @@
+class Solution {
+
+    public static int smallestSubWithSum(int x, int[] arr) {
+        // Your code goes here
+        int start=0;
+        int end=0;
+        int maxSum=0;
+        int minLength=arr.length+1;
+        
+        while(end<arr.length){
+            //adding from right
+        while(end<arr.length && maxSum<=x){
+           maxSum+=arr[end++];
+           
+        }
+//removing from left 
+        while(start<arr.length && maxSum>x){
+            minLength=Math.min(minLength,end-start);
+            maxSum-=arr[start++];
+           
+        }}
+        if(minLength==arr.length+1){
+            return 0;
+        }return minLength;
+    }
+}
