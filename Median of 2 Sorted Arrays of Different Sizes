@@ -1,0 +1,33 @@
+class Solution {
+    public double medianOf2(int a[], int b[]) {
+        // Your Code Here
+        int [] combined=new int [a.length+b.length];
+      
+      int k=0;
+      int l=0;
+        int i=0;
+        while(k<a.length&&l<b.length){
+            if(a[k]<b[l]){
+                combined[i++]=a[k++];
+            }else{
+                combined[i++]=b[l++];
+               
+            }
+        }
+        while(k<a.length){
+            combined[i++]=a[k++];
+        }while(l<b.length){
+            combined[i++]=b[l++];
+        }
+     float median=0;
+        if((combined.length-1)%2==0){
+            return combined[(combined.length-1)/2];
+            
+        }else{
+            int curr=(combined.length-1)/2;
+            int next=curr+1;
+            median=((float)combined[next]+(float)combined[curr])/2;
+        }
+        return median;
+    }
+}
