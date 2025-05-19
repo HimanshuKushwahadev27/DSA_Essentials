@@ -1,0 +1,15 @@
+
+class Solution {
+    public int countSubstring(String s) {
+        // code here
+        int count =0;
+        
+        HashMap<Character,Integer> hm=new HashMap<>();
+        for(int i=0;i<s.length();i++){
+            hm.put(s.charAt(i),hm.getOrDefault(s.charAt(i),0)+1);
+        }
+        for(int freq:hm.values()){
+            count+=(freq*(freq+1))/2;
+        }return count;
+    }
+}
