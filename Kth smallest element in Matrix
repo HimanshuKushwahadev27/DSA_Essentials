@@ -1,0 +1,43 @@
+class Solution {
+    //making a custom class for priorityqueue so that each elements contains val,row ,col
+    //and intialize the pq on the basis of val;
+    static class Cell implements Comparable<Cell>{
+        int val,row,col;
+        
+        Cell(int val,int row,int col){
+            this.val=val;
+            this.row=row;
+            this.col=col;
+        }
+        public int compareTo(Cell o){
+            return Integer.compare(this.val,o.val);
+        }
+    }
+    public static int kthSmallest(int[][] mat, int n, int k) {
+        // code here.
+
+        //array So that we wont add element twice
+        boolean [][]visited=new boolean[n][n];
+        
+        PriorityQueue<Cell> pq=new PriorityQueue<>();
+        pq.offer(new Cell(mat[0][0],0,0));
+        visited[0][0]=true;
+        
+        for(int i=0;i<k-1;i++){
+            Cell curr=pq.poll();
+            int r=curr.row;
+            int c=curr.col;
+            
+            //down
+            if(r+1<n && !visited[r+1][c]){
+                pq.offer(new Cell(mat[r+1][c],r+1,c));
+                visited[r+1][c]=true;
+            }
+            //right
+            if(c+1<n && !visited[r][c+1]){
+                pq.offer(new Cell(mat[r][c+1],r,c+1));
+                visited[r][c+1]=true;
+            }
+        }return pq.poll().val;
+    }
+}
