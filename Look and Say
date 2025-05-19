@@ -1,0 +1,33 @@
+lass Solution {
+    public String countAndSay(int n) {
+        // code here
+        
+        String pre="1";
+        if(n<=0){
+            return "";
+        }
+        
+        for(int i=1;i<n;i++){
+            
+          StringBuilder ans=new StringBuilder();
+          
+          int count=1;
+          
+            for(int j=1;j<pre.length();j++){
+                
+                if( pre.charAt(j)==pre.charAt(j-1)){
+                    //we found contiguous elements
+                    count++;
+                }else{
+                    ans.append(count).append(pre.charAt(j-1));
+                    count=1;
+                    
+                }
+                
+            }
+            ans.append(count).append(pre.charAt(pre.length()-1));
+            pre=ans.toString();
+        }
+        return pre;
+    }
+}
