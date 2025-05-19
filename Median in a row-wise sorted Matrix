@@ -1,0 +1,50 @@
+class Solution {
+    int upperBound(int []row,int target){
+        int low=0;
+        int high=row.length;
+        while(low<high){
+            int mid=(low+high)/2;
+            if(row[mid]<=target){
+                low=mid+1;
+            }else{
+                high=mid;
+            }
+        }return low;
+    }
+    int median(int mat[][]) {
+        // code here
+        int r=mat.length;
+        int c=mat[0].length;
+        
+        int min=mat[0][0];
+        int max=mat[0][c-1];
+        
+        for(int i=0;i<r;i++){
+            //0 column
+            if(min>mat[i][0]){
+                min=mat[i][0];
+            }
+            //last column
+            if(max<mat[i][c-1]){
+                max=mat[i][c-1];
+            }
+        }
+        
+        int medianin=(r*c+1)/2;
+        
+        while(min<max){
+            int mid=min+(max-min)/2 ;
+            int midpos=0;
+            
+            for(int i=0;i<r;i++){
+                int pos=upperBound(mat[i],mid);
+                midpos+=Math.abs(pos);
+            }
+            if(midpos<medianin){
+                min=mid+1;
+            }else{
+                max=mid;
+            }
+        }return max;
+    }
+}
