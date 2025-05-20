@@ -1,0 +1,28 @@
+
+class Solution {
+    public void swap(StringBuilder x,int n,int m){
+        char s=x.charAt(n);
+        x.setCharAt(n,x.charAt(m));
+        x.setCharAt(m,s);
+    }
+    public void helper(ArrayList<String> al, StringBuilder s, int index){
+        
+        if(index==s.length()){
+            al.add(s.toString());
+            return ;
+        }
+        
+        for(int i=index;i<s.length();i++){
+            swap(s,index,i);
+            helper(al,s,index+1);
+            swap(s,index,i);
+        }
+    }
+    public ArrayList<String> findPermutation(String s) {
+        // Code here
+        ArrayList<String> al=new ArrayList<>();
+        StringBuilder str=new StringBuilder(s);
+        helper(al,str,0);
+        return al;
+    }
+}
