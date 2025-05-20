@@ -1,0 +1,67 @@
+class Solution {
+    public static int findTime(HashMap<Node,Node> hm,Node target){
+        Queue<Node> q=new LinkedList<>();
+        q.offer(target);
+        //visiten map to keep track of all the burned nodes
+        HashMap<Node ,Integer> vis=new HashMap<>();
+        vis.put(target,1);
+        int max=0;
+        
+        while(!q.isEmpty()){
+            int size=q.size();
+            int num=0;
+            
+            for(int i=0;i<size;i++){
+                Node curr=q.poll();
+                
+                if(curr.left!=null && !vis.containsKey(curr.left)){
+                    num=1;
+                    vis.put(curr.left,1);
+                    q.offer(curr.left);
+                }
+                if(curr.right!=null && !vis.containsKey(curr.right)){
+                    num=1;
+                    vis.put(curr.right,1);
+                    q.offer(curr.right);
+                }
+                if(hm.get(curr)!=null && !vis.containsKey(hm.get(curr))){
+                    num=1;
+                    vis.put(hm.get(curr),1);
+                    q.offer(hm.get(curr));
+                }
+            }
+            if(num==1)max++;
+        }
+        return max;
+    }
+    public static Node initParent(Node root , HashMap<Node,Node>hm , int target){
+      Queue<Node> q=new LinkedList<>(); 
+        q.offer(root);
+        Node ans=new Node(-1);
+        
+        while(!q.isEmpty()){
+            Node temp=q.poll();
+            //address of the starting node : where the fire starts 
+            if(temp.data==target){
+                ans=temp;
+            }
+            if(temp.left!=null){
+                hm.put(temp.left,temp);
+                q.offer(temp.left);
+            }if(temp.right!=null){
+                hm.put(temp.right,temp);
+                q.offer(temp.right);
+            }
+        }return ans;
+    }
+    public static int minTime(Node root, int target) {
+        // code here
+        HashMap<Node,Node> hm=new HashMap<>();
+        //finding the address of the starting burning node;
+       Node source=initParent(root,hm,target);
+       int max=0;
+       max=findTime(hm,source);
+       return max;
+        
+    }
+}
