@@ -1,0 +1,41 @@
+class Solution {
+
+//using backtracking
+
+    public void swap(StringBuilder x,int n,int m){
+        char s=x.charAt(n);
+        x.setCharAt(n,x.charAt(m));
+        x.setCharAt(m,s);
+    }
+    public void helper(Set<String> hs, StringBuilder s, int index){
+        
+        if(index==s.length()){
+            hs.add(s.toString());
+            return ;
+        }
+        
+        Set<Character> used=new HashSet<>();
+        //set used to remove dublicate calls
+        
+        for(int i=index;i<s.length();i++){
+            if(used.contains(s.charAt(i))){
+                continue;
+            }
+            used.add(s.charAt(i));
+            
+            swap(s,index,i);
+            helper(hs,s,index+1);
+            swap(s,index,i);
+        }
+    }
+    public ArrayList<String> findPermutation(String s) {
+        // Code here
+       
+        StringBuilder str=new StringBuilder(s);
+        Set<String> hs=new HashSet<>();
+         helper(hs,str,0);
+         ArrayList<String> al=new ArrayList<>(hs);
+       
+        return al;
+    }
+}
