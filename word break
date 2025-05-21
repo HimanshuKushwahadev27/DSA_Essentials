@@ -1,0 +1,23 @@
+class Solution {
+    public boolean wordBreak(String s, String[] dictionary) {
+        // code here
+        Set<String> al=new HashSet<>(Arrays.asList(dictionary));
+        boolean []dp=new boolean[s.length()+1];
+        dp[0]=true;
+        
+        int len=0;
+        
+        for(String word:dictionary){
+            len=Math.max(len,word.length());
+        }
+        
+        for(int i=1;i<=s.length();i++){
+            for(int j=1 ; j<=len && i-j>=0 ;j++){
+                if(dp[i-j]==true && al.contains(s.substring(i-j,i))){
+                    dp[i]=true;
+                    break;
+                }
+            }
+        }return dp[s.length()];
+    }
+}
