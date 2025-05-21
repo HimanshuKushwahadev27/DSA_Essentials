@@ -1,0 +1,23 @@
+class Solution {
+    
+    public void helper(String s, int index,String current,List<String> list){
+        if(index==s.length()){
+            list.add(current);
+            return;
+        }
+    helper(s,index+1,current+s.charAt(index),list);
+        helper(s,index+1,current,list);
+        
+    }
+    public List<String> AllPossibleStrings(String s) {
+        // Code here
+        List<String> list=new LinkedList<>();
+        
+      
+        helper(s,0,"",list);
+            
+        
+        Collections.sort(list);
+        return list;
+    }
+}
