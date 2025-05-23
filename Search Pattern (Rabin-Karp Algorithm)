@@ -1,0 +1,49 @@
+class Solution {
+    //taking max ascii value ;
+   public static int d=256;
+   
+    ArrayList<Integer> search(String pattern, String text) {
+        // your code here
+        ArrayList<Integer> al=new ArrayList<>();
+        
+        int h=1;
+        int m=pattern.length();
+        int n=text.length();
+        //so that value are in the range of integer 
+        int q=101;
+        
+        int t=0; int p=0;
+        
+        //
+        for(int i=0;i<m-1;i++){
+            h=(h*d)%q;
+        }
+        
+        //finding intial hash
+        for(int i=0;i<m;i++){
+            t=(d*t + text.charAt(i))%q;
+            p=(d*p + pattern.charAt(i))%q;
+        }
+        
+        for(int i=0;i<=n-m;i++){
+            
+            if(t==p){
+              int j=0;
+              
+              for(j=0;j<m;j++){
+                  if(text.charAt(i+j)!=pattern.charAt(j)){
+                      break;
+                  }
+              }if(j==m){
+                  al.add(i+1);
+              }
+            }
+            if(i<n-m){
+                t=(d*(t-text.charAt(i)*h) + text.charAt(i+m))%q;
+                if(t<0){
+                    t=t+q;
+                }
+            }
+        }return al;
+    }
+}
