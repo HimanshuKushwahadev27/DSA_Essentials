@@ -1,0 +1,37 @@
+class Solution {
+    // Function to find lexicographic rank of a string.
+    static int CHAR=256;
+  
+    static int findRank(String S) {
+        
+        int n=S.length();
+        
+        int fun=1;
+        //finding factorial for the current length;
+        for(int i=1;i<=n;i++){
+            fun*=i;
+        }
+        
+        int res=1;
+        int[] count=new int[CHAR];
+        
+        for(int i=0;i<n;i++){
+            count[S.charAt(i)]++;
+        }
+        //getting all the counts on the right that are leass than the current element
+        for(int i=1;i<CHAR;i++){
+            count[i]+=count[i-1];
+        }
+        
+        for(int i=0;i<n-1;i++){
+             fun=fun/(n-i);
+            res=res + count[S.charAt(i)-1]*fun;
+            
+            //starting form i reduce the counts o nthe left as the current one already processed
+            for(int j=S.charAt(i);j<CHAR;j++){
+                count[j]--;
+            }
+        }
+        return res;
+    }
+}
