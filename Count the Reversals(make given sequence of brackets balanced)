@@ -1,0 +1,30 @@
+class Solution {
+    public int countMinReversals(String s) {
+        // code here
+        int ans=0;
+        Stack<Character> st=new Stack<>();
+        
+        for(char c:s.toCharArray()){
+            
+            
+            if(c=='{'){
+                st.push(c);
+            }else{
+                //reversing the closing bracket if empty stack
+                if(st.isEmpty()){
+                    ans++;
+                    st.push('{');
+                }else{
+                    //pop if encounter corresponding opening bracket for current closing bracket
+                    st.pop();
+                }
+            }
+        }//if  odd values present for eg "[[[" no way to reverse them 
+        if(st.size()%2!=0){
+            return -1;
+        }//if even it is possible to reverse them '[[' just one reversal to balanced the string 
+        //so divide by 2;
+        ans+=st.size()/2;
+        return ans;
+    }
+}
