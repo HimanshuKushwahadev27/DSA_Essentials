@@ -1,0 +1,27 @@
+class Solution {
+    public int minFlips(String S) {
+        // Code here
+        int cnt0odd=0;
+        int cnt0even=0;
+        int i=0;
+        for( char c:S.toCharArray()){
+            
+            //
+            if(i%2==0){
+                if(c=='0'){
+                    cnt0odd++;
+                }else{
+                    cnt0even++;
+                }
+            }else{
+                if(c=='0'){
+                    cnt0even++;
+                }else{
+                    cnt0odd++;
+                }
+                
+            }
+            i++;
+        }return Math.min(cnt0odd, cnt0even);
+    }
+}
