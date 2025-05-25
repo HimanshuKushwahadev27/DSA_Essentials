@@ -1,0 +1,59 @@
+class Solution {
+    public int [] nRow={-1,-1,-1,0,0,1,1,1};
+    public int [] nCol={-1,0,1,-1,1,-1,0,1};
+    
+    public boolean helper(char [][]grid, String word , int x ,int y , int index ,int n, int m){
+        
+        for(int i=0 ; i<word.length() ; i++){
+            //moving in the direction of index till length of the word
+             int newx=x+nRow[index]*i;
+             int newy=y+nCol[index]*i;
+             
+             if(newx<0 || newx>=n || newy<0 || newy>=m || grid[newx][newy] != word.charAt(i)){
+                 return false;
+             }
+             
+        }return true;
+    }
+    public int[][] searchWord(char[][] grid, String word) {
+        // Code here
+     int n=grid.length;
+     int m=grid[0].length;
+     
+     Set<String> seen=new HashSet<>();
+     List<List<Integer>> list=new ArrayList<>();
+     
+     
+     for(int i=0;i<n;i++){
+         
+         for(int j=0;j<m;j++){
+             
+             if(word.charAt(0)==grid[i][j]){
+                 
+                 for(int k=0 ; k<8;k++){
+                     
+                     if(helper(grid,word,i ,j, k ,n , m)){
+                         String key= i+" "+j;
+                         if(!seen.contains(key)){
+                             seen.add(key);
+                             list.add(Arrays.asList(i,j));
+                         }
+                         //only one combination for the current cell which is equal to word
+                         break;
+                     }
+                 }
+             }
+         }
+     }
+     
+     int [][] ans=new int[list.size()][2];
+     
+     for(int i=0;i< list.size();i++){
+         ans[i][0]=list.get(i).get(0);
+         ans[i][1]=list.get(i).get(1);
+     }
+     return ans;
+     
+     
+    }
+}
