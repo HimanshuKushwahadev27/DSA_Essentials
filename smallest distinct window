@@ -4,8 +4,6 @@ class Solution {
         if(str.length()==0){
             return 0;
         }
-        //getting total distinct element
-        
         Set<Character>uniq=new HashSet<>();
         for(int i=0;i<str.length();i++){
             uniq.add(str.charAt(i));
@@ -19,17 +17,21 @@ class Solution {
         
         for(int i=0;i<str.length();i++){
             hm.put(str.charAt(i),hm.getOrDefault(str.charAt(i),0)+1);
-            //incrementing formed if we get a single element
+            
             if(hm.get(str.charAt(i))==1){
                 formed++;
-            }//while our formed doesnt become required string length
-            
+            }
+            //runs as long as current window contains all req elements (left .... i)
             while(formed==req){
-            //updating new minimum
+                //if the current contains all the unique character the check if it is minimum
+                //than the previous 
                 if(i-left+1<min){
                     min=i-left+1;
                 }
-                //decreasing from left
+                //shrinking the window from the left 
+                //while removing the count af the element at  the left from the current window
+                //and also reducing fromed if we get the count of the value at the left 0
+                //after removing it 
                 char cleft=str.charAt(left);
                 hm.put(cleft,hm.get(cleft)-1);
                 if(hm.get(cleft)==0){
