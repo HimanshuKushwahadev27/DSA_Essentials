@@ -1,0 +1,34 @@
+class Solution {
+    // Function to check if two strings are isomorphic.
+    public static boolean areIsomorphic(String s1, String s2) {
+        // Your code here
+        if(s1.length()!=s2.length());
+        
+        int n=s1.length();
+        boolean [] vis=new boolean[256];
+ 
+         int [] map=new int[256];
+         
+ 
+        for(int i=0;i<n;i++){
+            int  x=s1.charAt(i);
+            int y=s2.charAt(i);
+            
+            //current value is not mapped
+            if(map[x]==0){
+                //its other pair is already mapped to some value
+                if(vis[y]){
+                    return false;
+                }
+                //other pair not mapped 
+                map[x]=y;
+                vis[y]=true;
+            }else{
+                //current value is not mapped to its pair
+                if(map[x]!=y){
+                return false;}
+            }
+            
+        }return true;
+    }
+}
