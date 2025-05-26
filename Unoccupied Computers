@@ -1,0 +1,38 @@
+class Solution {
+    public static int solve(int n, String s) {
+        // code here
+        
+         int len=s.length();
+
+         boolean [] vis=new boolean[256]; //got the pc 
+         boolean [] seen=new boolean[256]; // just arrived once
+         int res=0;
+         
+         for(int i=0;i<len;i++){
+          
+            char j=s.charAt(i);
+            int c=(int)j;
+            
+            if(!seen[c]){
+                //person just arrived 
+                seen[c]=true;
+                //alocate seats if n>0
+                if(n>0){
+                    vis[c]=true;
+                    n--;
+                }else{
+                    //dont alocate it 
+                    res++;
+                }
+            }else{
+                if(vis[c]){
+                    n++;
+                    vis[c]=false;
+                }
+            }
+         }
+         
+         return res;
+         
+    }
+}
