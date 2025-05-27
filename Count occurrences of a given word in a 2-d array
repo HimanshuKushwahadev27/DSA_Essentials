@@ -1,0 +1,43 @@
+// User function Template for Java
+
+class Solution {
+    int rec(char [][] mat , int i , int j , int currIndex , String s){
+        if(i<0 || j<0 || i>=mat.length || j>=mat[i].length){
+            return 0;
+        }
+        char currChar=mat[i][j];
+        if(s.charAt(currIndex)!=currChar){
+            return 0;
+        }
+        if(currIndex==s.length()-1){
+            return 1;
+        }
+        int cnt=0;
+        mat[i][j]='#';
+        
+        //up
+        cnt+=rec(mat , i-1 , j  ,currIndex+1 ,s);
+        //down
+        cnt+=rec(mat , i+1 , j , currIndex+1 ,s);
+        //right
+        cnt+=rec(mat , i , j+1 , currIndex+1 ,s);
+        //left
+        cnt+=rec(mat , i ,j-1 , currIndex+1 ,s);
+        
+        mat[i][j]=currChar;
+        return cnt;
+        
+    }
+    public int findOccurrence(char mat[][], String s) {
+        // Write your code here
+        int c=0;
+         for(int i=0;i<mat.length;i++){
+            for(int j=0;j<mat[i].length;j++){
+                
+                //going forward only if first character matches
+                if(mat[i][j]==s.charAt(0)){
+                    c+= rec(mat,i,j,0,s);}
+            }
+        }return c;
+    }
+}
