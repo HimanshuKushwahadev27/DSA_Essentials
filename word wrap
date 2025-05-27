@@ -1,0 +1,35 @@
+class Solution {
+    public int solveWordWrap(int[] arr, int k) {
+        // Code here
+        int n=arr.length;
+        
+        int dp[]=new int [n+1];
+        
+        Arrays.fill(dp,Integer.MAX_VALUE);
+        dp[n]=0;
+        
+        for(int i=n-1 ; i>=0 ;i--){
+            
+            int len=-1;
+            for(int j=i ;j<n;j++){
+                
+                len+=arr[j]+1;
+                
+                if(len>k){
+                    break;
+                }
+                 int c;
+                 
+                 if(j==n-1){
+                     c=0; //last dash
+                 }else{
+                     int e=k-len;
+                     c=e*e;
+                 }
+                  
+                dp[i]=Math.min(dp[i] , c+dp[j+1]);
+            }
+        }return dp[0];
+        
+    }
+}
