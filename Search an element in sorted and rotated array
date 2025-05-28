@@ -1,0 +1,35 @@
+// User function Template for Java
+
+class Solution {
+    static int Search(int arr[], int target) {
+        // code here
+        int ans=0;
+        int low=0;
+        int high=arr.length-1;
+        
+        while(low<=high){
+            int m=(low+high)/2;
+            
+            if( arr[m]==target){
+                return m;
+                
+            }//sorted left portion 
+            if(arr[low]<=arr[m]){
+                //element is present in this sorted portion
+                if(arr[low]<=target && target<arr[m]){
+                    high=m-1;
+                }else{
+                    low=m+1;
+                }
+            }//sprted right portion
+            else{
+                if(arr[m]<target && target<=arr[high]){
+                    low=m+1;
+                }else{
+                    high=m-1;
+                }
+                
+            }
+        }return -1;
+    }
+}
