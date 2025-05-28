@@ -1,0 +1,44 @@
+class Solution {
+    
+    public static int getMaxArea(int arr[]) {
+        // your code here
+        int [] left=new int[arr.length];
+        int right[]=new int[arr.length];
+        
+        
+        Stack<Integer> st=new Stack<>();
+        
+        for(int i=0;i<arr.length;i++){
+            while(!st.isEmpty() && arr[st.peek()]>=arr[i]){
+                st.pop();
+            }if(st.isEmpty()){
+                left[i]=0;
+            }else{
+                //plus 1 as boundary is 1 based indexing not o based
+                left[i]=st.peek()+1;
+            }
+            st.push(i);
+            
+        }
+        Stack<Integer> st1=new Stack<>();
+        
+        for(int i=arr.length-1; i>=0;i--){
+            while(!st1.isEmpty() && arr[st1.peek()]>=arr[i]){
+                st1.pop();
+            }if(st1.isEmpty()){
+               right[i]=arr.length-1;
+            }else{
+               //minus 1 as boundary is 1 based indexing not o based
+                right[i]=st1.peek()-1;
+            }
+            st1.push(i);
+        }
+        int cnt=Integer.MIN_VALUE;
+        
+        for(int i=0;i<arr.length;i++){
+            int num=(right[i]-left[i]+1)*arr[i];
+            cnt=Math.max(cnt,num);
+        }
+        return cnt;
+    }
+}
