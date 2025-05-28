@@ -1,0 +1,34 @@
+// User function Template for Java
+
+class GFG {
+    ArrayList<Integer> find(int arr[], int x) {
+        // code here
+        ArrayList<Integer> al=new ArrayList<>();
+        
+    
+        
+        int low=0;
+        int high=arr.length-1;
+        if(arr[high]<x || arr[low]>x){
+            al.add(-1);
+            al.add(-1);
+            return al;
+        }
+        while(low<=high){
+            if(arr[low]<x){
+                low++;
+            }if(arr[high]>x){
+                high--;
+            }if(arr[low]==x && arr[high]==x){
+                break;
+            }
+        }
+        if(arr[low]!=x && arr[high]!=x){
+             al.add(-1);
+            al.add(-1);
+            return al;
+        }al.add(low);
+        al.add(high);
+        return al;
+    }
+}
