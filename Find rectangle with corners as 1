@@ -1,0 +1,42 @@
+class Solution {
+    
+    public boolean ValidCorner(int mat[][]) {
+        // Code here
+        int n=mat.length;
+        HashMap<Integer , List<Integer>> hm=new HashMap<>();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<mat[i].length ;j++){
+                  if(mat[i][j]==1){
+                      
+                      //storing occurences of 1 in hashmap where key is row and value is the columns at 
+                      //which 1 is found 
+                      if(!hm.containsKey(i)){
+                          hm.put(i,new ArrayList<>());
+                      }
+                                                hm.get(i).add(j);
+                  }
+                }
+            }
+           
+        for(int i=0;i<n;i++){
+            if(!hm.containsKey(i)){
+                continue;
+            }
+            for(int j=i+1;j<n;j++){
+                if(!hm.containsKey(j)){
+                    continue;
+                }
+                int c=0;
+                for(int x: hm.get(j)){
+                    if(hm.get(i).contains(x)){
+                        c++;
+                        if(c>=2){
+                    return true;
+                }
+                    }
+                }
+            }
+        }return false;
+        
+    }
+}
