@@ -1,0 +1,46 @@
+/*
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int data){
+        this.data = data;
+    }
+} */
+class Solution {
+    int maxSum=0;
+    int maxLen=0;
+    
+    public void helper(Node root, int currSum, int currLen){
+        
+        if(root==null){
+            return;
+        }
+        
+        currSum+=root.data;
+        currLen++;
+        
+        //if the leaf node reached 
+        if(root.right==null && root.left==null){
+            //and currlen of the branch is greater than the maxlen
+            if(currLen>maxLen){
+                maxLen=currLen;
+                maxSum=currSum;
+            }//if len is equal pick the greater sum value 
+            else if(currLen==maxLen){
+                maxSum=Math.max(currSum,maxSum);
+            }
+            return;
+        }
+        //call for the left and right nodes if not leaf node
+        helper(root.left,currSum,currLen);
+        helper(root.right,currSum,currLen);
+        
+    }
+    public int sumOfLongRootToLeafPath(Node root) {
+        // code here
+        helper(root,0,0);
+        return maxSum;
+    
+    }
+}
