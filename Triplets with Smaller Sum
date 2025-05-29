@@ -1,0 +1,33 @@
+// User function Template for Java
+
+class Solution {
+    long countTriplets(int n, int sum, long arr[]) {
+        int ans=0;
+        Arrays.sort(arr);
+        
+        for(int i=0;i<n-2;i++){
+            
+            int low=i+1;
+            int high=n-1;
+            
+            while(low<high){
+                long num=arr[i]+arr[low]+arr[high];
+                
+              if(num<sum){
+                  //any values below high can be substituted at high to get the required sum 
+                  //but same cant be said for low as low and i are static in this case 
+                  
+                  ans+=(high-low);
+                  low++;
+                  
+              }else{
+                  //the largest value itself would be reduced as we didnt get required value 
+                  high--;
+                  
+              }
+            }
+        }
+        return ans;
+        
+    }
+}
