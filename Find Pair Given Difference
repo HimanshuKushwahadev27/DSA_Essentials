@@ -1,0 +1,24 @@
+
+class Solution {
+    public boolean findPair(int[] arr, int x) {
+        // code here
+        Arrays.sort(arr);
+        
+        int low=0;
+        int high=1;
+        
+        while(high<arr.length){
+            if(low==high){
+                high++;
+                continue;
+            }
+            if(arr[high]-arr[low]==x){
+                return true;
+            }else if(arr[high]-arr[low]<x){
+                high++;
+            }else{
+               low++;
+            }
+        }return false;
+    }
+}
