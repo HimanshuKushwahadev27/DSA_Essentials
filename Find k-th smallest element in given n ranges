@@ -1,0 +1,57 @@
+class Pair{
+    int first;
+    int second;
+    
+    Pair(int first,int second){
+        this.first=first;
+        this.second=second;
+    }
+}
+class Solution {
+    public static ArrayList<Integer> kthSmallestNum(int n, int[][] range, int q,
+                                                    int[] queries) {
+        // code here
+        //comparator to sort on the basis of starting ponts;
+        Arrays.sort(range ,(a,b) -> Integer.compare(a[0],b[0]));
+        
+        List<Pair> list=new ArrayList<>();
+        
+        Pair curr=new Pair(range[0][0] , range[0][1]);
+        
+        //merge overlapping values
+        for(int i=1 ; i<range.length;i++){
+            Pair next=new Pair(range[i][0],range[i][1]);
+            
+            if(curr.second>=next.first){
+                curr.second=Math.max(curr.second,next.second);
+            }else{
+                list.add(curr);
+                curr=next;
+            }
+        }
+        //last range;
+        list.add(curr);
+        
+        ArrayList<Integer> al=new ArrayList<>();
+        
+        for(int k:queries){
+            boolean f=false;
+            int rem=k;
+            for(Pair temp:list){
+                int size=temp.second-temp.first+1;  //max range for the particular pair
+                
+                if(rem<=size){
+                    al.add(temp.first+rem-1);
+                    f=true;
+                    break;
+                }
+                //if the limit exceeds then move on to next pair while 
+                //subtracting the current size from the kth element
+                rem-=size;
+            }
+            if(!f){
+                al.add(-1);
+            }
+        }return al;
+    }
+}
