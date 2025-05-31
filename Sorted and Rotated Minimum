@@ -1,0 +1,31 @@
+// User function Template for Java
+
+class Solution {
+    public int findMin(int[] arr) {
+        // complete the function here
+        int low=0;
+        int high=arr.length-1;
+        if(arr[low]<=arr[high]){
+            return arr[low];
+        }
+        int ans=0;
+        
+        while(low<=high){
+            
+            int m=low+(high-low)/2;
+            
+            if(m>0 &&  arr[m]<arr[m-1]){
+                return arr[m];
+            }
+            if(m<arr.length-1 && arr[m]>arr[m+1]){
+                return arr[m+1];
+            }
+            if(arr[m] >=arr[low]){
+                low=m+1;
+            }else{
+                high=m-1;
+            }
+        }
+        return -1;
+    }
+}
