@@ -1,0 +1,36 @@
+// User function Template for Java
+
+class Solution {
+    public static int lamuto(int []arr,int low , int high){
+        int pivot=arr[high];
+        int j=low-1;
+        for(int i=low ; i<=high-1;i++){
+            if(arr[i]<pivot){
+                j++;
+                int temp=arr[j];
+                arr[j]=arr[i];
+                arr[i]=temp;
+            }
+        }int temp=arr[j+1];
+        arr[j+1]=arr[high];
+        arr[high]=temp;
+        return j+1;
+    }
+    public static int kthSmallest(int[] arr, int k) {
+        // Your code here
+        
+        int l=0;
+        int h=arr.length-1;
+        while(l<=h){
+            int p=lamuto(arr,l,h);
+            
+            if(p==k-1){
+                return arr[p];
+            }else if(p>k-1){
+                h=p-1;
+            }else{
+                l=p+1;
+            }
+        }return -1;
+    }
+}
