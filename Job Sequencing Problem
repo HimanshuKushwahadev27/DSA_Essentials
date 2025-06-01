@@ -1,0 +1,47 @@
+
+class Solution {
+
+    public ArrayList<Integer> jobSequencing(int[] deadline, int[] profit) {
+        // code here
+        
+        int [][] pair=new int[deadline.length][2];
+        
+        for(int i=0;i<deadline.length;i++){
+            pair[i][0]=deadline[i];
+            pair[i][1]=profit[i];
+        }
+        //sort on the basis of profit in descending order
+        Arrays.sort(pair , (a , b) -> Integer.compare(b[1],a[1]));
+        
+        //max range for the deadline 
+        int maxDeadline=Arrays.stream(deadline).max().getAsInt();
+        
+        //visited array so that values wouldnt be visited again
+        boolean vis[]=new boolean[maxDeadline+1];
+        
+        ArrayList<Integer> al=new ArrayList<>();
+        int maxProfit=0;
+        int numofJobs=0;
+        
+        for(int i=0;i<pair.length;i++){
+            int d=pair[i][0];
+            int p=pair[i][1];
+            
+            //for every deadline we visited the dealine which are not visited and 
+            //less than the current deadline since each job takes 1 unit of time
+            //and caan be assignedd to lower time slots  if free
+            
+            for(int  j=d ;j>0;j--){
+                if(!vis[j]){
+                    vis[j]=true;
+                    numofJobs++;
+                    maxProfit+=p;
+                    break;
+                }
+            }
+        }
+        al.add(numofJobs);
+        al.add(maxProfit);
+        return al;
+    }
+}
