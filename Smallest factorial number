@@ -1,0 +1,32 @@
+// User function Template for Java
+
+class Solution {
+   
+    int getZeros(int f){
+        int cnt=0;
+        for(long i=5 ; i<=f ; i*=5){
+            cnt+= f/i;
+        }
+        return cnt;
+    }
+    int findNum(int n) {
+        // Complete this function
+        int low=5;
+        int high=n*5;
+        int ans=0;
+        
+        while(low<=high){
+            int mid=(low+high)/2;
+            
+
+           int num=getZeros(mid);
+          if(num>=n){
+              ans=mid;
+              high=mid-1;
+          }else{
+              low=mid+1;
+          }
+        }
+        return ans;
+    }
+}
