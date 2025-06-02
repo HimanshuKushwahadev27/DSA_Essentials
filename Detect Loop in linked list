@@ -1,0 +1,35 @@
+/* Node is defined as
+
+class Node
+{
+    int data;
+    Node next;
+    Node(int d) {data = d; next = null; }
+}
+
+*/
+
+class Solution {
+    // Function to check if the linked list has a loop.
+    public static boolean detectLoop(Node head) {
+        // Add code here
+        
+        
+        Node slow=head;
+        Node front=head;
+        
+        while(front!=null && front.next!=null ){
+            slow=slow.next;
+            front=front.next.next;
+            
+            if(slow==front){
+                return true;
+            }
+            
+        }
+        
+       
+        return false;
+    
+    }
+}
