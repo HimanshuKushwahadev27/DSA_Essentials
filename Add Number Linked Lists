@@ -1,0 +1,69 @@
+/* node for linked list
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}
+
+*/
+
+class Solution {
+    static Node rev(Node head){
+        Node curr=head;
+        Node prev=null;
+        Node front=null;
+        
+        while(curr!=null){
+            front=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=front;
+        }
+        return prev;
+    }
+    static Node addTwoLists(Node num1, Node num2) {
+        // code here
+        if(num1==null && num2==null)return null;
+        if(num1==null)return num2;
+        if(num2==null)return num1;
+        
+    
+        
+        Node prev1=rev(num1);
+        Node prev2=rev(num2);
+        
+        Node head=new Node(-1);
+        Node curr3=head;
+        int carry=0;
+        
+        while(prev1!=null || prev2!=null || carry>0){
+           int sum=carry;
+           
+           if(prev1!=null){
+               sum+=prev1.data;
+               prev1=prev1.next;
+               
+           }if(prev2!=null){
+               sum+=prev2.data;
+               prev2=prev2.next;
+           }
+           
+           carry=sum/10;
+           curr3.next=new Node(sum%10);
+           curr3=curr3.next;
+           
+        }
+        
+        Node res= rev(head.next);
+       
+       if(res!=null && res.data==0 && res.next!=null){
+           return res.next;
+       }
+       return res;
+    }
+}
