@@ -1,0 +1,46 @@
+/*
+class Node
+{
+    int data;
+    Node next;
+}
+*/
+
+class Solution {
+    // Function to remove a loop in the linked list.
+    public static void removeLoop(Node head) {
+        // code here
+      
+        
+        Node slow=head;
+        Node fast=head;
+        //finding loop 
+        while(fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            
+            if(slow==fast){
+                break;
+            }
+        }
+        if(fast==null){
+            return;
+        }
+         slow=head;
+         
+         //finding starting point of the loop 
+         
+        while(slow!=fast){
+            slow=slow.next;
+            fast=fast.next;
+        }
+        
+        //finding ending point 
+        
+        while(fast.next!=slow){
+            fast=fast.next;
+        }
+        fast.next=null;
+        return;
+    }
+}
