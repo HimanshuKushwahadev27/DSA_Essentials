@@ -1,0 +1,67 @@
+/* Node of a linked list
+ class Node {
+   int data;
+    Node next;
+    Node(int d)  { data = d;  next = null; }
+}
+ Linked List class
+class LinkedList
+{
+    Node head;  // head of list
+}*/
+
+class Intersect {
+    // Function to find intersection point in Y shaped Linked Lists.
+    
+    //get the length of the each linked list 
+    static int getLen(Node head){
+        
+        int cnt=1;
+        Node curr=head;
+        
+        while(curr!=null){
+            cnt++;
+            curr=curr.next;
+        }
+        return cnt;
+    }
+    static Node intersectPoint(Node head1, Node head2) {
+        // code here
+        if(head1==null || head2==null){
+            return null;
+        }
+        
+        Node curr1=head1;
+        Node curr2=head2;
+        
+       int f=getLen(curr1);
+       int s=getLen(curr2);
+       
+       //get the difference
+       int len=Math.abs(f-s);
+       
+       
+       //move the pinter of the linked list with greater length by len
+       if(f>s){
+           while(len!=0){
+               curr1=curr1.next;
+               len--;
+           }
+       }else if(s>f){
+           while(len!=0){
+               curr2=curr2.next;
+               len--;
+           }
+       }
+       
+       //iterate till get equal same node
+       while(curr1!=curr2){
+           curr1=curr1.next;
+           curr2=curr2.next;
+       }
+       
+       //return 
+       return curr1;
+       
+    }
+}
