@@ -1,0 +1,60 @@
+/* Node of a linked list
+ class Node {
+   int data;
+    Node next;
+    Node(int d)  { data = d;  next = null; }
+}
+*/
+
+class Solution {
+    public int len(Node head){
+        int cnt=1;
+        Node curr=head;
+        
+        while(curr.next!=head){
+            cnt++;
+            curr=curr.next;
+        }
+        return cnt;
+    }    
+    public Pair<Node, Node> splitList(Node head) {
+        // Code here
+        if(head==null){
+            return new Pair(null,null);
+        }  
+        
+        int l=len(head);
+        Node curr=head;
+        Node prev=null;
+    
+        while(curr.next!=head){
+            curr=curr.next;
+        }
+        curr.next=null;
+        curr=head;
+        int h=0;
+        
+        if(l%2==0){
+             h=(l/2);
+           
+        }else{
+             h=(l/2)+1;
+            
+        }
+        while(h!=0){
+                prev=curr;
+                curr=curr.next;
+                h--;
+           }
+            
+        prev.next=head;
+        Node last=curr;
+        
+        while(last.next!=null){
+            last=last.next;
+        }
+        last.next=curr;
+        
+        return new Pair(head,curr);
+    }
+}
