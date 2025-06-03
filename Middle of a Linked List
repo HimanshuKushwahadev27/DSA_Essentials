@@ -1,0 +1,39 @@
+/* Node of a linked list
+ class Node {
+   int data;
+    Node next;
+    Node(int d)  { data = d;  next = null; }
+}
+*/
+
+class Solution {
+    int getLen(Node head){
+        int cnt=0;
+        Node curr=head;
+        
+        while(curr!=null){
+            curr=curr.next;
+            cnt++;
+        }
+        return cnt;
+    }
+    int getMiddle(Node head) {
+        // Your code here.
+        if(head==null){
+            return 0;
+        }
+        
+        int len=getLen(head);
+        int ans=0;
+        Node curr=head;
+        
+        len/=2;
+        while(len!=0){
+            curr=curr.next;
+            len--;
+        }
+        ans=curr.data;
+        
+        return ans;
+    }
+}
