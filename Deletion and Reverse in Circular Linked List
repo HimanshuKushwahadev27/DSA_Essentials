@@ -1,0 +1,69 @@
+/*class Node
+{
+    int data;
+    Node next;
+    Node(int d)
+    {
+        data=d;next=null;
+    }
+}*/
+
+class Solution {
+    // Function to reverse a circular linked list
+    Node reverse(Node head) {
+        // code here
+        if(head==null || head.next==null){
+            return head;
+        }
+        
+        Node tail=head;
+        
+        while(tail.next!=head){
+            tail=tail.next;
+        }
+        
+        Node prev=null;
+        Node front=null;
+        Node curr=head;
+        
+        while(curr!=tail){
+            front=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=front;
+        }
+        curr.next=prev;
+        head.next=curr;
+        
+        return curr;
+    }
+
+    // Function to delete a node from the circular linked list
+    Node deleteNode(Node head, int key) {
+        
+        // code here
+        if(head==null){
+            return null;
+        }
+        
+        Node curr=head;
+        Node prev=null;
+        
+        while(curr.data!=key && curr.next!=head){
+            prev=curr;
+            curr=curr.next;
+        }
+        if(curr.data==key && curr!=head){
+            prev.next=curr.next;
+        }
+        if(curr.data==key && curr==head){
+            prev=curr;
+              while(prev.next!=curr){
+                  prev=prev.next;
+              }
+              prev.next=curr.next;
+              return curr.next;
+        }
+        return head;
+    }
+}
