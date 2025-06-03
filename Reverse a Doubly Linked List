@@ -1,0 +1,34 @@
+/*
+class DLLNode {
+    int data;
+    DLLNode next;
+    DLLNode prev;
+
+    DLLNode(int val) {
+        data = val;
+        next = null;
+        prev = null;
+    }
+}
+*/
+class Solution {
+    public DLLNode reverseDLL(DLLNode head) {
+        // Your code here
+        if(head==null || head.next==null){
+            return head;
+        }
+        
+        DLLNode curr=head;
+        DLLNode front=null;
+        DLLNode back=null;
+
+        while(curr!=null){
+              front=curr.next;
+              curr.next=back;
+              curr.prev=front;
+              back=curr;
+              curr=front;
+        }
+        return back;
+    }
+}
