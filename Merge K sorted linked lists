@@ -1,0 +1,39 @@
+/*class Node
+{
+    int data;
+    Node next;
+
+    Node(int key)
+    {
+        data = key;
+        next = null;
+    }
+}
+*/
+
+// arr is an array of Nodes of the heads of linked lists
+
+class Solution {
+    // Function to merge K sorted linked list.
+    Node mergeKLists(List<Node> arr) {
+        // Add your code here.
+        
+        PriorityQueue<Integer> pq=new PriorityQueue<>();
+        
+        for(Node temp :  arr){
+            while(temp!=null){
+                pq.offer(temp.data);
+                temp=temp.next;
+            }
+        }
+        Node curr=new Node(-1);
+        Node dummy=curr;
+        
+        while(pq.size()>0){
+            int temp=pq.poll();
+            dummy.next=new Node(temp);
+            dummy=dummy.next;
+        }
+        return curr.next;
+    }
+}
