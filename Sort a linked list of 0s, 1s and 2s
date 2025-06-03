@@ -1,0 +1,44 @@
+/* class Node
+{
+    int data;
+    Node next;
+    Node(int data)
+    {
+        this.data = data;
+        next = null;
+    }
+}*/
+class Solution {
+    static Node segregate(Node head) {
+        // code here
+        Node zero=new Node(-1);
+        Node one=new Node(-2);
+        Node two=new Node(-3);
+        Node dummy1=zero;
+        Node dummy2=one;
+        Node dummy3=two;
+        
+        Node curr=head;
+        
+        while(curr!=null){
+            if(curr.data==0){
+                zero.next=new Node(0);
+                zero=zero.next;
+            }else if(curr.data==1){
+                one.next=new Node(1);
+                one=one.next;
+            }else{
+                two.next=new Node(2);
+                two=two.next;
+            }
+            curr=curr.next;
+        }
+        
+        dummy1=dummy1.next;
+        zero.next=dummy2.next;
+        one.next=dummy3.next;
+        
+        return dummy1;
+        
+    }
+}
