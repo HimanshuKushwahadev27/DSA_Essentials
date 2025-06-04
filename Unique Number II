@@ -1,0 +1,34 @@
+class Solution {
+    public int[] singleNum(int[] arr) {
+        // Code here
+        int ans=arr[0];
+        
+        for(int i=1 ; i<arr.length ; i++){
+            ans^=arr[i];
+        }
+        
+        //right most bit , as & operator gives 1 only if both have one 
+        int right = ans & -ans;
+        
+        int one=0;
+        int zero=0;
+        
+        for(int i=0 ; i<arr.length ; i++){
+            if((arr[i] & right) !=0){
+                one^=arr[i];
+            }else{
+                zero^=arr[i];
+            }
+        }
+        int [] res=new int[2];
+        
+        if(one<zero){
+            res[0]=one;
+            res[1]=zero;
+        }else{
+            res[0]=zero;
+            res[1]=one;
+        }
+        return res;
+    }
+}
