@@ -1,0 +1,51 @@
+/*
+class Node {
+   int data;
+   Node next;
+
+  Node(int data) {
+      this.data = data;
+  }
+}
+*/
+class Solution {
+    Node rev(Node head){
+        Node curr=head;
+        Node prev=null;
+        Node front=null;
+        
+        while(curr!=null){
+            front=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=front;
+        }
+        return prev;
+    }
+    Node compute(Node head) {
+        // your code here
+        if(head==null){
+            return head;
+        }
+        Node curr=head;
+        Node prev=null;
+        curr=rev(curr);
+        Node dummy=curr;
+        int max=curr.data;
+        
+        while(curr!=null){
+          max=Math.max(curr.data,max);
+          if(max==curr.data){
+              prev=curr;
+          }
+            curr=curr.next;
+            
+            if(curr!=null){
+                if(curr.data<max){
+                    prev.next=curr.next;
+                }
+            }
+        }
+        return rev(dummy);
+    }
+}
