@@ -1,0 +1,30 @@
+// User function Template for Java
+
+class Solution {
+    // Function to find the minimum length of a subset
+    int minSubset(int[] arr) {
+        // code here
+        Arrays.sort(arr);
+        int sum=0;
+        
+        
+        for(int i  : arr){
+            sum+=i;
+        }
+        
+        sum-=arr[arr.length-1];
+        int last=arr[arr.length-1];
+        int cnt=1;
+        
+        for(int i=arr.length-2 ; i>=0 ; i--){
+            if(sum>=last){
+                sum-=arr[i];
+                last+=arr[i];
+                cnt++;
+            }else{
+                 break;
+            }
+        }
+        return cnt;
+    }
+}  
