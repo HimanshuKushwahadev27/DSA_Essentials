@@ -1,0 +1,16 @@
+// User function Template for Java
+
+class Solution {
+    static int minimumDays(int S, int N, int M) {
+        // code here
+         
+         if(M>N || (7*M>6*N && S>6))return -1;
+        
+        int t=S*M;
+        
+        if(t%N==0){
+            return t/N;
+        }
+        return (t/N+1);
+    }
+}
