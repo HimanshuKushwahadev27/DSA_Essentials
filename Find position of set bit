@@ -1,0 +1,21 @@
+// User function Template for Java
+
+class Solution {
+    static int findPosition(int n) {
+        // code here
+        int m=Integer.bitCount(n);
+
+        if(m==0 || m!=1){
+            return -1;
+        }
+        int cnt=1;
+        
+        while(n>0){
+            if((n&1)!=1){
+                cnt++;
+            }
+            n=n>>1;
+        }
+        return cnt;
+    }
+};
