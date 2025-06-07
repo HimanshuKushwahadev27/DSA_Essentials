@@ -1,0 +1,38 @@
+class Pair implements Comparable<Pair>{
+    int val;
+    int wt;
+    
+    Pair(int wt, int val){
+        this.val=val;
+        this.wt=wt;
+    }
+    public int compareTo(Pair p){
+        return (wt*p.val)-(val*p.wt);
+    }
+    
+}
+class Solution {
+    double fractionalKnapsack(int[] values, int[] weights, int W) {
+        
+        List<Pair> list=new ArrayList<>();
+        
+        for(int i=0 ; i<values.length ; i++){
+            list.add(new Pair(weights[i],values[i]));
+        }
+        Collections.sort(list);
+        
+        double cnt=0;
+        
+        for(int i=0 ; i<list.size() ; i++){
+            
+            if(list.get(i).wt<=W){
+                cnt+=list.get(i).val;
+                W-=list.get(i).wt;
+            }else{
+                cnt = cnt + list.get(i).val*(double)W/(double)list.get(i).wt;
+                break;
+            }
+        }
+        return cnt;
+    }
+}
