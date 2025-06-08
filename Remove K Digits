@@ -1,0 +1,40 @@
+
+class Solution {
+    public String removeKdigits(String s, int k) {
+        // code here
+        Deque<Character> st=new LinkedList<>();
+        
+        st.push(s.charAt(0));
+        
+        for(int i=1 ; i<s.length() ; i++){
+            
+            while(!st.isEmpty() && st.peekLast()>s.charAt(i) && k>0){
+                st.pollLast();
+                k--;
+            }
+            st.addLast(s.charAt(i));
+        }
+        StringBuilder res=new StringBuilder();
+        
+        while(!st.isEmpty() && k>0){
+            st.pollLast();
+            k--;
+        }
+        
+        while(!st.isEmpty() && st.peekFirst()=='0'){
+            st.pollFirst();
+        }
+        
+        while(!st.isEmpty()){
+            res.append(st.pollFirst());
+        }
+        
+        if(res.length()==0){
+            return "0";
+        }
+        
+        return res.toString();
+        
+
+    }
+}
