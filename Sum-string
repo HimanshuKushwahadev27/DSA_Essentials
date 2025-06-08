@@ -1,0 +1,60 @@
+class Solution {
+    String sumString(String s1 ,String s2){
+        
+        int i=s1.length()-1;
+        int j=s2.length()-1;
+        int carry=0;
+        StringBuilder res=new StringBuilder();
+        
+        while(i>=0 || j>=0 || carry>0){
+            int sum=carry;
+            
+            if(i>=0){
+                sum+=s1.charAt(i--)-'0';
+            }
+            if(j>=0){
+                sum+=s2.charAt(j--)-'0';
+            }
+            int rem=sum%10;
+            carry=sum/10;
+            res.append((char)(rem + '0'));
+        }
+        return res.reverse().toString();
+    }
+    boolean check(String s ,int start , int len1 ,int len2 , int n){
+        
+        String s1=s.substring(start,start+len1);
+        String s2=s.substring(len1+start,start+len1 +len2);
+        String s3=sumString(s1,s2);
+        int s3_len=s3.length();
+        
+        if((s1.length()>1 && s1.charAt(0)=='0') || (s2.length()>1 && s2.charAt(0)=='0'))return false;
+        
+        //greater than the remaining substring
+        
+        if(start+len1+len2+s3_len > n){
+            return false;
+        }
+        if(s3.equals(s.substring(start+len1+len2 ,start+len1+len2+s3_len))){
+            if(start+len1+len2+s3_len==n){
+                return true;
+            }
+            return check(s , start+len1 , len2 , s3_len ,n );
+        }
+        return false;
+    }
+    public boolean isSumString(String s) {
+        // code here
+        int n=s.length();
+        
+        for(int i=1 ; i<n ; i++){
+            
+            for(int j=1 ; i+j<n ; j++){
+                
+                if(check(s , 0 , i , j, n)){
+                    return true;
+                }
+            }
+        }return false;
+    }
+}
