@@ -1,0 +1,45 @@
+// User function Template for Java
+
+class Solution {
+
+    String chooseandswap(String str) {
+        // Code Here
+        int n=str.length();
+        
+        int [] vis=new int [26];
+        
+        Arrays.fill(vis ,-1);
+        
+        for(int i=0 ; i<n ; i++){
+            char c=str.charAt(i);
+            
+            if(vis[c-'a']==-1){
+                vis[c-'a']=i;
+            }
+        }    
+        
+        for(int i=0 ;i<n ; i++){
+            char c=str.charAt(i);
+            
+            int num=c-'a';
+            
+            for(int j=0 ;j<num ; j++){
+                
+                if(vis[j]>i){
+                    
+                    char c1=(char)(j + 'a');
+                    StringBuilder st=new StringBuilder();
+                    
+                    for(char ch:str.toCharArray()){
+                        
+                        if(ch==c)st.append(c1);
+                        else if(ch==c1)st.append(c);
+                        else st.append(ch);
+                    }
+                    return st.toString();
+                }
+            }
+        }
+        return str;
+    }
+}
