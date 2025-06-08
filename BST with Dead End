@@ -1,0 +1,39 @@
+/*
+class Node {
+        int data;
+        Node left, right;
+
+        Node(int item) {
+            data = item;
+            left = right = null;
+        }
+}*/
+
+class Solution {
+    public void fill(List<Integer> list, Node root,List<Integer>leaf){
+        if(root==null){
+            return;
+        }
+        if(root.left==null && root.right==null){
+            leaf.add(root.data);
+        }
+        
+        fill(list,root.left,leaf);
+        list.add(root.data);
+        fill(list,root.right,leaf);
+    }
+    public boolean isDeadEnd(Node root) {
+        // Code here.
+        List<Integer> list=new ArrayList<>();
+        List<Integer> leaf=new ArrayList<>();
+
+        fill(list,root,leaf);
+        
+        for(int n: leaf){
+            if(n==1 && list.contains(n+1))return true;
+            if(list.contains(n-1) && list.contains(n+1))return true;
+        }
+        return false;
+        
+    }
+}
