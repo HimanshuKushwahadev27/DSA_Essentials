@@ -1,0 +1,52 @@
+// User function Template for Java
+class Pair{
+    int arr;
+    int dept;
+    int plat;
+    
+    Pair(int arr, int dept ,int plat){
+        this.arr=arr;
+        this.dept=dept;
+        this.plat=plat;
+    }
+    
+}
+class Solution {
+    int maxStop(int n, int m, ArrayList<ArrayList<Integer>> trains) {
+        // Write your code here
+        
+        ArrayList<Pair> pairs=new ArrayList<>();
+        
+        for(int i=0 ; i<m ; i++){
+            
+            pairs.add(new Pair(trains.get(i).get(0),trains.get(i).get(1),trains.get(i).get(2)));
+        }
+        
+        Collections.sort(pairs , (a,b) -> {
+            if(a.plat!=b.plat){
+                return a.plat-b.plat;
+            }else{
+               return a.dept-b.dept;
+            }
+        });
+        
+        int cnt=0;
+        int prevD=-1;
+        int prevP=-1;
+        
+        for(Pair p : pairs){
+            
+            if(p.plat!=prevP){
+                prevD=-1;
+                prevP=p.plat;
+            }
+            if(p.arr>=prevD){
+                cnt++;
+                prevD=p.dept;
+            }
+            
+        }
+        return cnt;
+        
+    }
+}
