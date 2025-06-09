@@ -1,0 +1,38 @@
+class Solution {
+    public long findMaxProduct(List<Integer> arr) {
+        // code here
+        int mod=1000000007;
+        if(arr.size()==1){
+            return arr.get(0)%mod;
+        }
+        int n=arr.size();
+        
+        
+        int cntZero=0;
+        int cntNega=0;
+        int negmax=Integer.MIN_VALUE;
+        long pro=1;
+        
+        for(int i=0; i<n ; i++){
+            
+            if(arr.get(i)==0){
+                cntZero++;
+            }else if(arr.get(i)<0){
+                cntNega++;
+                negmax=Math.max(arr.get(i),negmax);
+                pro=(pro*arr.get(i))%mod;
+            }else{
+                pro=(pro*arr.get(i))%mod;
+            }
+        }
+        if(cntZero==n){
+            return 0;
+        }else if(cntZero==n-1){
+            return 0;
+        }else if (cntNega%2==1){
+              return pro/negmax;
+        }else{
+            return pro;
+        }
+    }
+}
