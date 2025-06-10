@@ -1,0 +1,31 @@
+// User function Template for Java
+
+class Solution {
+    static ArrayList<Integer> candyStore(int c[], int N, int k) {
+        // code here
+        ArrayList<Integer> al=new ArrayList<>();
+        
+        Arrays.sort(c);
+        
+        int count=0;
+        int maxCount=0;
+        int minCount=0;
+        
+        
+        for(int i=0 ; i<N ;i++){
+            count+=k+1;
+            maxCount+=c[N-i-1];
+            minCount+=c[i];
+            
+            if(count>=N){
+                al.add(minCount);
+                al.add(maxCount);
+                return al;
+            }
+        }
+        
+        al.add(-1);
+        al.add(-1);
+        return al;
+    }
+}
