@@ -1,0 +1,26 @@
+class Solution {
+    public static int minCost(int[] arr) {
+        // code here
+       PriorityQueue<Integer> pq=new PriorityQueue<>();
+       
+       for(int i :arr){
+           pq.offer(i);
+       }
+       
+       int cost=0;
+       
+       while(pq.size()!=1){
+           
+           int n=pq.peek();
+           pq.poll();
+           int m=pq.peek();
+           pq.poll();
+           
+           cost = cost + n + m;
+           pq.offer( n + m);
+           
+       }
+       
+       return cost;
+    }
+}
