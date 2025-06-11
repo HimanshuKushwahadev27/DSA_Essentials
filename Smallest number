@@ -1,0 +1,46 @@
+
+class Solution {
+    public long getSum(long n){
+         
+        long m=0;
+        
+        while(n!=0){
+            m+=n%10;
+            n=n/10;
+        }
+        return m;
+    }
+    public String smallestNumber(int s, int d) {
+        // code here
+       
+        if(d==1 && s<10){
+            return String.valueOf(s);
+        }
+        long num=0;
+        
+        StringBuilder n=new StringBuilder("1");
+        
+        for(int i=1  ; i<d ; i++){
+               n.append("0");
+        }
+        
+        num=Long.parseLong(n.toString());
+        n.append("0");
+        long end=Long.parseLong(n.toString());
+
+        String ans="-1";
+        
+        for(long i=num ;  i<=end ; i++){
+            
+               long k=getSum(i);
+               
+               if(k==(long)s){
+                   ans=Long.toString(i);
+                   break;
+               }
+               
+        }
+        return ans;
+      
+    }
+}
