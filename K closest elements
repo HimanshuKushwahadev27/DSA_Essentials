@@ -1,0 +1,39 @@
+class pair{
+    int num;
+    int sub;
+    pair(int num , int sub){
+        this.num=num;
+        this.sub=sub;
+    }
+    
+}
+class Solution {
+    int[] printKClosest(int[] arr, int k, int x) {
+        // code here
+        PriorityQueue<pair> pq=new PriorityQueue<>((a,b) -> {
+            if(a.sub!=b.sub){
+                return Integer.compare(a.sub,b.sub);
+            }else{
+                return Integer.compare(b.num,a.num);
+            }
+            
+        });
+        
+        for(int i : arr){
+            if(i==x){
+                continue;
+            }
+            pq.offer(new pair(i , Math.abs(i-x)));
+        }
+        
+        int [] ans=new int [k];
+        ans[0]=pq.peek().num;
+        int prev=pq.peek().sub;
+       pq.poll();
+        
+        for(int i=1 ; i<k ; i++){
+           ans[i]=pq.poll().num;
+        }
+        return ans;
+    }
+}
