@@ -1,0 +1,28 @@
+class Solution {
+    static int rec(int []arr, int [][] dp , int i ,int j){
+        
+        if(i==j)return 0;
+        
+        if(dp[i][j]!=-1)return dp[i][j];
+        
+        int min=Integer.MAX_VALUE;
+        
+        for(int k=i ; k<j ; k++){
+            int cnt=arr[i-1] * arr[k] * arr[j] + rec(arr , dp , i , k)+
+                          rec(arr , dp ,k+1 , j);
+            
+           min=Math.min(cnt, min);
+        }
+        return dp[i][j]=min;
+    }
+    static int matrixMultiplication(int arr[]) {
+        // code here
+        int [][] dp =new int [arr.length][arr.length];
+        
+        for(int [] i : dp){
+            Arrays.fill(i , -1);
+        }
+        
+        return rec(arr,dp ,1 ,arr.length-1);
+    }
+}
