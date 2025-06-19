@@ -1,0 +1,41 @@
+class Solution {
+    public static String caseSort(String s) {
+        // code here
+        char [] up=new char[26];
+        char [] sm=new char[26];
+      
+      
+      for(int k = 0 ; k< s.length() ; k++){
+          
+          if(Character.isUpperCase(s.charAt(k))){
+                up[s.charAt(k)-'A']++;
+          }if(Character.isLowerCase(s.charAt(k))){
+              sm[s.charAt(k)-'a']++;
+          }
+      }
+      StringBuilder ans=new StringBuilder();
+      
+      for(int l=0 ; l<s.length() ; l++){
+          
+          if(Character.isUpperCase(s.charAt(l))){
+              
+              for(int i=0 ; i<26 ;i++){
+                  if(up[i]!=0){
+                      up[i]--;
+                      ans.append((char)(i+'A'));
+                      break;
+                  }
+              }
+          }if(Character.isLowerCase(s.charAt(l))){
+              for(int i=0 ; i<26 ; i++){
+                  if(sm[i]!=0){
+                      sm[i]--;
+                      ans.append((char)(i+'a'));
+                      break;
+                  }
+              }
+          }
+      }
+      return ans.toString();
+    }
+}
