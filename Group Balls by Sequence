@@ -1,0 +1,29 @@
+class Solution {
+    public boolean validgroup(int[] arr, int k) {
+        // code here
+        TreeMap<Integer , Integer> tm=new TreeMap<>();
+        
+        for(int i : arr){
+            tm.put(i , tm.getOrDefault(i , 0 )+1);
+        }
+        
+        while(!tm.isEmpty()){
+            
+            int f= tm.firstKey();
+            
+            for(int i=0 ; i< k ;i++){
+                
+                int curr=f+i;
+                
+                if(!tm.containsKey(curr))return false;
+                
+                tm.put(curr,tm.get(curr)-1);
+                
+                if(tm.get(curr)==0){
+                    tm.remove(curr);
+                }
+            }
+        }
+        return true;
+    }
+}
