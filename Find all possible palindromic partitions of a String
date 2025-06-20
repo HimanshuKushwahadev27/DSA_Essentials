@@ -1,0 +1,31 @@
+class Solution {
+    public boolean ispal(String s , int l , int r){
+        while(l<r){
+            if(s.charAt(l++)!=s.charAt(r--))return false;
+        }
+        return true;
+    }
+    public void rec(int start , String s , ArrayList<String> curr , ArrayList<ArrayList<String>> res){
+        
+        if(start==s.length()){
+            res.add(new ArrayList<>(curr));
+            return;
+        }
+        
+        for(int i =start ; i<s.length() ; i++){
+            if(ispal(s,start,i)){
+                curr.add(s.substring(start, i +1));
+                rec(i+1 , s, curr , res);
+                curr.remove(curr.size()-1);
+            }
+        }
+    }
+    public ArrayList<ArrayList<String>> palinParts(String s) {
+        // code here
+        ArrayList<ArrayList<String>> al=new ArrayList<>();
+        
+        rec( 0 ,s, new ArrayList<>(),al);
+        return al;
+        
+    }
+}
