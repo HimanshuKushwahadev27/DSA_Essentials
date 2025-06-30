@@ -1,0 +1,29 @@
+// User function Template for Java
+
+class Solution {
+
+    public long countSubArrayProductLessThanK(long arr[], int n, long k) {
+        
+        
+       long cnt =0;
+       
+       long pro=1;
+       
+     int  start=0;
+       int  high=0;
+       
+       while(high<n){
+           
+           pro*=arr[high];
+           
+          while(pro>=k && start<=high){
+              pro/=arr[start];
+              start++;
+          }
+          cnt+=(high-start+1);
+          high++;
+       }
+       return cnt;
+       
+    }
+}
