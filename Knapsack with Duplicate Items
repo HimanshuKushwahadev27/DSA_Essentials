@@ -1,0 +1,33 @@
+// User function Template for Java
+
+class Solution {
+    static int[][]dp;
+    static int rec(int [] val ,int [] wt , int capa , int n){
+        
+        if(n<0)return 0;
+        if(capa==0){
+            return 0;
+        }
+        if(dp[n][capa]!=-1)return dp[n][capa];
+        int ans2=0;
+        int ans=0;
+        
+        if(capa-wt[n]>=0){
+           ans= Math.max(val[n]+rec(val ,wt  , capa-wt[n] , n) ,
+                            rec(val,wt,capa,n-1));
+        }else{
+            ans2=rec(val,wt,capa,n-1);
+        }
+        return dp[n][capa]=Math.max(ans,ans2);
+    }
+    static int knapSack(int val[], int wt[], int capacity) {
+        // code here
+        dp=new int[val.length][capacity+1];
+        
+        for(int [] row : dp){
+            Arrays.fill(row,-1);
+        }
+        
+        return rec(val,wt,capacity,val.length-1);
+    }
+}
