@@ -1,0 +1,34 @@
+class Solution {
+    public int totalElements(int[] arr) {
+        // code here
+        int low=0;
+        int high=0;
+        int ans=Integer.MIN_VALUE;
+        
+        HashMap<Integer , Integer> hm=new HashMap<>();
+
+        while(high<arr.length){
+            if(!hm.containsKey(arr[high])){
+                hm.put(arr[high],1);
+                high++;
+            }else{
+               hm.put(arr[high],hm.getOrDefault(arr[high],0)+1);
+               high++;
+            }
+            
+            if(hm.size()==2){
+                ans=Math.max(ans,high-low);
+            }
+            
+            if(hm.size()>2){
+               int num=hm.get(arr[low]);
+               hm.put(arr[low],num-1);
+               if(hm.get(arr[low])==0){
+                   hm.remove(arr[low]);
+               }
+               low++;
+            }
+        }
+        return ans;
+    }
+}
