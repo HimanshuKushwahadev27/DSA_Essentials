@@ -1,0 +1,30 @@
+class Solution {
+    public String longestString(String[] words) {
+        // code here
+        Set<String> st=new HashSet<>();
+        
+        ArrayList<String> al=new ArrayList<>();
+        String ans="";
+        for(int i=0 ; i <words.length ; i++){
+            st.add(words[i]);
+        }
+        
+        for(int i=0 ; i<words.length;  i++){
+            boolean fla=false;
+            for(int j=1 ; j<=words[i].length() ; j++){
+
+                if(!st.contains(words[i].substring(0,j))){
+                    fla=true;
+                }
+            }
+            if(fla==false ){
+                if(ans.length()<words[i].length()){
+                    ans=words[i];
+                }else if(ans.length()==words[i].length()){
+                    ans = ans.compareTo(words[i]) < 0 ? ans : words[i];
+                }
+            }
+        }
+        return ans;
+    }
+}
