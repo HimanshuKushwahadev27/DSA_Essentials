@@ -1,0 +1,29 @@
+// User function Template for Java
+class StackQueue {
+    Stack<Integer> st=new Stack<>();
+    Stack<Integer> st1=new Stack<>();
+    
+    public void push(int B) {
+        // code here
+        st.push(B);
+    }
+
+    public int pop() {
+         
+         if(st.isEmpty())return -1;
+         
+         while(!st.isEmpty()){
+             int n=st.pop();
+             st1.push(n);
+         }
+         int n=st1.pop();
+         
+         while(!st1.isEmpty()){
+             int m=st1.pop();
+             st.push(m);
+         }
+         
+         return n;
+        
+    }
+}
