@@ -1,0 +1,21 @@
+class MyStack {
+    int[] oper=new int[100];
+    int front =-1;
+    public void push(int x) {
+        // code here
+        front++;
+        oper[front]=x;
+        
+    }
+
+    public int pop() {
+        if(front==-1){
+            return -1;
+        }
+        
+        int n=oper[front];
+        front--;
+        // code here
+        return n;
+    }
+}
