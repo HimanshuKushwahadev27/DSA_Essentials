@@ -1,0 +1,26 @@
+/*Complete the function below*/
+class GfG {
+    void helper(Stack<Integer> st){
+        if(st.isEmpty())return;
+        if(!st.isEmpty()){
+            int temp=st.pop();
+            helper(st);
+            sorted(st,temp);
+        }
+    }
+    void sorted(Stack<Integer> st,int n){
+        if(st.isEmpty() || n>st.peek()){
+            st.push(n);
+        }
+        else{
+            int temp=st.pop();
+            sorted(st,n);
+            st.push(temp);
+        }
+    }
+    public Stack<Integer> sort(Stack<Integer> s) {
+        // add code here.
+        helper(s);
+        return s;
+    }
+}
