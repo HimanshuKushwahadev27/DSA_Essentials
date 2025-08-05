@@ -1,0 +1,37 @@
+class Solution {
+    static List<Integer> firstNegInt(int arr[], int k) {
+        // write code here
+        ArrayList<Integer> al=new ArrayList<>();
+        
+        int low=0;
+        int high=0;
+        
+        Deque<Integer> dq=new ArrayDeque<>();
+        
+        
+
+        while(high<arr.length){
+           
+            if(arr[high]<0 ){
+                dq.addLast(high);
+            }
+            if(high-low+1<k){
+                high++;
+            }else if(high-low+1==k){
+                if(!dq.isEmpty()){
+                    al.add(arr[dq.peekFirst()]);
+                }else{
+                    al.add(0);
+                }
+                
+                if(!dq.isEmpty() && dq.peekFirst()==low){
+                    dq.pollFirst();
+                }
+                low++;
+                high++;
+            }
+            
+        }
+        return al;
+    }
+}
