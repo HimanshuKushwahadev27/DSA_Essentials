@@ -1,0 +1,22 @@
+
+class Solution {
+    static void helper(Stack<Integer> st, ArrayList<Integer> st1){
+        if(st.isEmpty())return;
+        if(!st.isEmpty()){
+            int temp=st.pop();
+            helper(st,st1);
+            st1.add(temp);
+        }
+    }
+    static void reverse(Stack<Integer> St) {
+        // code here
+        ArrayList<Integer> st1=new ArrayList<>();
+        
+        helper(St ,st1);
+        Collections.reverse(st1);
+        for( int i : st1){
+            St.push(i);
+        }
+        
+    }
+}
