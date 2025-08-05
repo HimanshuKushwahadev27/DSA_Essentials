@@ -1,0 +1,23 @@
+class Solution {
+    public String FirstNonRepeating(String s) {
+        // code here
+        HashMap<Character, Integer> hm=new HashMap<>();
+        Queue<Character> q=new ArrayDeque<>();
+        
+        
+        StringBuilder ans=new StringBuilder();
+        
+        for(int i=0; i<s.length(); i ++){
+            char c=s.charAt(i);
+            hm.put(c,hm.getOrDefault(c,0)+1);
+            q.add(c);
+            
+            while(!q.isEmpty() && hm.get(q.peek())>1){
+                q.poll();
+            }
+            ans.append(!q.isEmpty() ? q.peek() : '#');
+        }
+        return ans.toString();
+        
+    }
+}
