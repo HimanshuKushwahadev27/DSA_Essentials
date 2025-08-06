@@ -1,0 +1,29 @@
+
+class Solution {
+    public int minValue(String s, int k) {
+
+      PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
+      int [] fr=new int[26];
+      
+      for(int i  : s.toCharArray()){
+          fr[i-'a']++;
+      }
+     
+      for(int i=25 ; i>=0  ; i--){
+          if(fr[i]>0)pq.add(fr[i]);
+      }
+      
+      while(k>0 && !pq.isEmpty()){
+          int max=pq.poll();
+          if(max-1>0)pq.add(max-1);
+          k--;
+      }
+      int sum=0;
+      while(!pq.isEmpty()){
+          int val=pq.poll();
+          sum+=(val*val);
+      }
+      return sum;
+         
+    }
+}
