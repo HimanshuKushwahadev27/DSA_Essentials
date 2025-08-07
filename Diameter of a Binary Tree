@@ -1,0 +1,35 @@
+/*
+class Node {
+    int data;
+    Node left;
+    Node right;
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+*/
+
+class Solution {
+    int d;
+    int helper(Node root){
+        if(root==null){
+            return 0;
+        }
+    
+    int left=helper(root.left);
+    int right=helper(root.right);
+    
+    d=Math.max(left+right,d);
+    
+    return Math.max(left,right)+1;
+        
+    }
+    int diameter(Node root) {
+        // Your code here
+        d=Integer.MIN_VALUE;;
+        helper(root);
+        return d;
+    }
+}
