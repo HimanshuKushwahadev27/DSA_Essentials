@@ -1,0 +1,39 @@
+/* A Binary Tree node
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+*/
+class Solution {
+    boolean flag;
+   int helper(Node root){
+        if(root==null)return 0;
+        
+        int left=helper(root.left);
+        int right=helper(root.right);
+        int n=root.data;
+
+        if(root.data!=left+right && (root.right!=null || root.left!=null)){
+            flag=false;
+        }
+        
+        return n+left+right;
+        
+    }
+    boolean isSumTree(Node root) {
+        // Your code here
+        if(root==null)return true;
+        flag=true;
+        
+        helper(root);
+        return flag;
+        
+    }
+}
