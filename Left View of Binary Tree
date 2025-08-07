@@ -1,0 +1,41 @@
+/*
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}*/
+class Solution {
+    ArrayList<Integer> leftView(Node root) {
+        // code here
+        ArrayList<Integer> al=new ArrayList<>();
+        
+        Queue<Node> q=new LinkedList<>();
+        q.add(root);
+        
+        while(!q.isEmpty()){
+            Node curr=q.peek();
+            al.add(curr.data);
+            
+            int s=q.size();
+            
+            while(s-->0){
+                Node temp=q.poll();
+                
+                if(temp.left!=null){
+                    q.add(temp.left);
+                }
+                if(temp.right!=null){
+                    q.add(temp.right);
+                }
+            }
+        }
+        return al;
+        
+    }
+}
