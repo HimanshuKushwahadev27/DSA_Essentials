@@ -1,0 +1,42 @@
+/*
+
+Definition for Binary Tree Node
+class Node
+{
+    int data;
+    Node left;
+    Node right;
+
+    Node(int data)
+    {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+*/
+
+class Solution {
+    static int sum;
+    public static int helper(Node root){
+        if(root==null)return 0;
+        
+        int left=helper(root.left);
+        int right=helper(root.right);
+        int n=root.data;
+        
+
+        root.data=n+left+right;
+        sum=Math.max(sum,root.data);
+        return root.data;
+        
+        
+    }
+    public static int findLargestSubtreeSum(Node root) {
+        // code here
+        sum=Integer.MIN_VALUE;
+        helper(root);
+        
+        return sum;
+    }
+}
