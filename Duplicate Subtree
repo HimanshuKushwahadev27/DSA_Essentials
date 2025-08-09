@@ -1,0 +1,48 @@
+/* A Binary Tree node
+
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+ */
+
+class Solution {
+    HashSet<String> hs=new HashSet<>();
+    public String helper(Node root){
+        String s="";
+        if(root==null)return "$";
+        
+        String ls=helper(root.left );
+         if(ls.equals("#")){
+             return "#";
+         }
+        String rs=helper(root.right);
+        if(rs.equals("#")){
+            return "#";
+        }
+        
+        s=root.data+"/"+ls+"_"+rs;
+        String r=Integer.toString(root.data);
+        if(s.length()>r.length()+4 && hs.contains(s)){
+            return "#";
+        }
+        hs.add(s);
+        return s;
+       
+    }
+    int dupSub(Node root) {
+        // code here
+        
+        if(helper(root).equals("#"))
+           return 1;
+           else
+             return 0;
+    }
+}
