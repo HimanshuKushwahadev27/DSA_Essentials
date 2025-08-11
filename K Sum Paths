@@ -1,0 +1,43 @@
+/*
+class Node {
+    int data;
+    Node left;
+    Node right;
+
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+*/
+
+class Solution {
+    int ans1;
+    void helper(Node root,int k,HashMap<Integer,Integer>hm,int ans){
+        if(root==null)return ;
+        
+        ans+=root.data;
+        if(hm.containsKey(ans-k)){
+            ans1+=hm.get(ans-k);
+        }
+        if(ans==k){
+            ans1++;
+        }
+        
+        hm.put(ans,hm.getOrDefault(ans,0)+1);
+        helper(root.left,k,hm,ans);
+        helper(root.right,k,hm,ans);
+        hm.put(ans,hm.get(ans)-1);
+        ans-=root.data;
+        
+    }
+    public int sumK(Node root, int k) {
+        // code here
+        HashMap<Integer,Integer> hm=new HashMap<>();
+        ans1=0;
+    
+        helper(root,k,hm,0);
+        return ans1;
+    }
+}
