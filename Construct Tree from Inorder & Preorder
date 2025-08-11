@@ -1,0 +1,36 @@
+/*
+class Node {
+    int data;
+    Node left, right;
+
+    Node(int key) {
+        data = key;
+        left = right = null;
+    }
+}
+*/
+
+class Solution {
+    public static Node helper(int [] pre, int ps, int pe , int is, int ie,HashMap<Integer,Integer> hm ){
+        if(ps>pe || is>ie)return null;
+        
+        Node root=new Node(pre[ps]);
+        
+        int inroot=hm.get(root.data);
+        int left=inroot-is;
+        
+        root.left=helper(pre,ps+1,ps+left,is,inroot-1,hm);
+        root.right=helper(pre,ps+left+1,pe,inroot+1,ie,hm);
+        
+        return root;
+    }
+    public static Node buildTree(int inorder[], int preorder[]) {
+        // code here
+        HashMap<Integer,Integer> in=new HashMap<>();
+
+        for(int i=0 ; i<inorder.length ; i++){
+            in.put(inorder[i],i);
+        }
+        return helper(preorder,0,preorder.length-1,0,inorder.length-1,in);
+    }
+}
