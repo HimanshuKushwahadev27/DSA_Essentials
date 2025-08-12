@@ -1,0 +1,23 @@
+class Solution {
+    public static ArrayList<Integer> findLeastGreater(int n, int[] arr) {
+        // code here
+        ArrayList<Integer> al=new ArrayList<>();
+        
+        TreeSet<Integer>  ts=new TreeSet<>();
+        
+        
+        for(int i=arr.length-1 ; i>=0 ; i --){
+            ts.add(arr[i]);
+            Integer num=ts.higher(arr[i]);
+            if(num==null){
+                al.add(-1);
+            }else{
+                al.add((int)num);
+            }
+            
+        }Collections.reverse(al);
+        return al;
+        
+        
+    }
+}
