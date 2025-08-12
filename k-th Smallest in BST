@@ -1,0 +1,32 @@
+// class Node
+// {
+//     int data;
+//     Node left, right;
+
+//     public Node(int d)
+//     {
+//         data = d;
+//         left = right = null;
+//     }
+// }
+
+class Solution {
+    // Return the Kth smallest element in the given BST
+    void helper(Node root, ArrayList<Integer> al ){
+        if(root==null)return ;
+        
+       
+        
+        helper(root.left , al);
+        al.add(root.data);
+        helper(root.right,al);
+        
+    }
+    public int kthSmallest(Node root, int k) {
+        // Write your code here
+        ArrayList<Integer> al=new ArrayList<>();
+         helper(root,al);
+         if(al.size()<k)return -1;
+        return al.get(k-1);
+    }
+}
