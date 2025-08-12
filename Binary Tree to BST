@@ -1,0 +1,40 @@
+/*Structure of the node class is
+class Node
+{
+    int data;
+    Node left, right;
+    Node(int item){
+        data = item;
+        left = right = null;
+    }
+} */
+
+class Solution {
+    // The given root is the root of the Binary Tree
+    // Return the root of the generated BST
+    public void helper(Node root, ArrayList<Integer> al){
+        if(root==null)return;
+         helper(root.left,al);
+         al.add(root.data);
+         helper(root.right,al);
+    }
+    int index=0;
+    public void update(Node root , ArrayList<Integer>al){
+        if(root==null)return ;
+        
+        update(root.left,al);
+        root.data=al.get(index);
+        index++;
+        update(root.right,al);
+    }
+    Node binaryTreeToBST(Node root) {
+        // Your code here
+        ArrayList<Integer> al=new ArrayList<>();
+        helper(root,al);
+        Collections.sort(al);
+        
+        update(root,al);
+        
+        return root;
+    }
+}
