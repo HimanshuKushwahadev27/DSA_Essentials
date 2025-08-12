@@ -1,0 +1,62 @@
+/*
+class Node
+{
+    int data;
+    Node left, right;
+
+    public Node(int d)
+    {
+        data = d;
+        left = right = null;
+    }
+}
+
+*/
+class Solution {
+    // Function to return a list of integers denoting the node
+    // values of both the BST in a sorted order.
+    Stack<Node> st=new Stack<>();
+    Stack<Node> st1=new Stack<>();
+    
+    void helper(Node r , Stack<Node> st){
+        while(r!=null){
+            st.add(r);
+            r=r.left;
+        }
+    }
+    public ArrayList<Integer> merge(Node root1, Node root2) {
+        // Write your code here
+        ArrayList<Integer> al=new ArrayList<>();
+        
+        helper(root1,st);
+        helper(root2,st1);
+        
+        while(!st.isEmpty() && !st1.isEmpty()){
+            
+            if(st.peek().data<st1.peek().data){
+                Node curr=st.peek();
+                al.add(curr.data);
+                st.pop();
+                helper(curr.right,st);
+            }else{
+                Node curr=st1.pop();
+                al.add(curr.data);
+                helper(curr.right,st1);
+            }
+        }
+        
+        while(!st.isEmpty()){
+            Node curr=st.pop();
+            al.add(curr.data);
+            helper(curr.right,st);
+        }
+        
+        while(!st1.isEmpty()){
+            Node curr=st1.pop();
+            al.add(curr.data);
+            helper(curr.right,st1);
+        }
+        return al;
+        
+    }
+}
