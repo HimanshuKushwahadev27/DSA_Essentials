@@ -1,0 +1,41 @@
+class Solution {
+    int [][] help={{0,1},{1,0},{0,-1},{-1,0}};
+    public void DFS(int[][]image , int [][]ans  ,int c ,int i ,int j,int original){
+        
+        ans[i][j]=c;
+        
+        for(int k=0 ;k<help.length ;k++){
+            int nr=i+help[k][0];
+            int nc=j+help[k][1];
+            
+            if(nr>=0 && nc>=0 && nr<image.length && nc<image[nr].length && ans[nr][nc]!=c && image[nr][nc]==original ){
+                DFS(image ,ans,c,nr,nc,original);
+            }
+        }
+    }
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        // Code here
+        int [][] ans=new int [image.length][image[0].length];
+        for(int [] i : ans){
+            Arrays.fill(i,-1);
+        }
+        for(int i=0 ; i<image.length ; i++){
+            for(int j=0;  j<image[i].length ; j++){
+                if(i==sr && j==sc ){
+                    DFS(image , ans  , newColor,i,j,image[i][j]);
+                }
+            }
+        }
+        for(int i=0; i <image.length ; i++){
+            for(int j=0 ; j<image[i].length ; j++){
+                if(ans[i][j]==newColor){
+                    continue;
+                }else{
+                    ans[i][j]=image[i][j];
+                }
+            }
+        }
+        return ans;
+        
+    }
+}
