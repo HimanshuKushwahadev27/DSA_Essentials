@@ -1,0 +1,42 @@
+class Solution {
+    boolean DFS(ArrayList<ArrayList<Integer>> adj , boolean[]vis,boolean [] st ,int s ){
+        vis[s]=true;
+        st[s]=true;
+        
+        for(int v : adj.get(s)){
+            if(!vis[v] && DFS(adj,vis,st,v)){
+                return true;
+            }else if(st[v]){
+                return true;
+            }
+        }
+        st[s]=false;
+        return false;
+        
+    }
+    public boolean isCyclic(int V, int[][] edges) {
+        // code here
+        boolean []vis=new boolean[V];
+        boolean []st=new boolean[V];
+        
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+        
+        for(int i=0  ; i <V ; i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int i=0; i <edges.length; i++){
+            int u=edges[i][0];
+            int v=edges[i][1];
+            adj.get(u).add(v);
+        }
+        
+        for(int i=0; i <V; i++){
+            if(!vis[i]){
+                if(DFS(adj,vis,st,i)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
