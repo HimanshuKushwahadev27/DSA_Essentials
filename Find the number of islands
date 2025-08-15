@@ -1,0 +1,33 @@
+class Solution {
+    int [][] help={{1,0},{0,1},{0,-1},{-1,0} ,{-1,1},{1,-1},{1,1},{-1,-1}};
+    
+    public void DFS(char [][] grid,boolean[][]vis, int i ,int j ){
+
+        vis[i][j]=true;
+        
+        for(int k=0 ; k<help.length ;k++){
+            int nr=i+help[k][0];
+            int nc=j+help[k][1];
+            
+            if(nr>=0 && nc>=0 && nr<grid.length && nc<grid[nr].length && grid[nr][nc]=='L' && !vis[nr][nc]){
+                DFS(grid,vis,nr,nc);
+            }
+        }
+        
+    }
+    public int countIslands(char[][] grid) {
+        // Code here
+        boolean [][]vis=new boolean[grid.length][grid[0].length];
+        int cnt=0;
+        
+        for(int i=0; i <grid.length ; i++){
+            for(int j=0 ; j<grid[i].length ; j++){
+                if(!vis[i][j] && grid[i][j]=='L'){
+                    cnt++;
+                    DFS(grid,vis,i,j);
+                }
+            }
+        }
+        return cnt;
+    }
+}
