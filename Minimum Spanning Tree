@@ -1,0 +1,44 @@
+import java.util.*;
+
+class Solution {
+    static class Pair {
+        int node, weight;
+        Pair(int node, int weight) {
+            this.node = node;
+            this.weight = weight;
+        }
+    }
+
+    public int spanningTree(int V, int[][] edges) {
+        // Build adjacency list
+        ArrayList<ArrayList<Pair>> adj = new ArrayList<>();
+        for (int i = 0; i < V; i++) adj.add(new ArrayList<>());
+
+        for (int[] e : edges) {
+            int u = e[0], v = e[1], w = e[2];
+            adj.get(u).add(new Pair(v, w));
+            adj.get(v).add(new Pair(u, w)); // undirected
+        }
+
+        boolean[] vis = new boolean[V];
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> a.weight - b.weight);
+
+        pq.add(new Pair(0, 0)); // start with node 0
+        int res = 0;
+
+        while (!pq.isEmpty()) {
+            Pair cur = pq.poll();
+            if (vis[cur.node]) continue;
+
+            vis[cur.node] = true;
+            res += cur.weight;
+
+            for (Pair nei : adj.get(cur.node)) {
+                if (!vis[nei.node]) {
+                    pq.add(new Pair(nei.node, nei.weight));
+                }
+            }
+        }
+        return res;
+    }
+}
