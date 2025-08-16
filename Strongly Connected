@@ -1,0 +1,63 @@
+class Solution {
+    // Function to find number of strongly connected components in the graph.
+    int cnt;
+    public void DFS(ArrayList<ArrayList<Integer>> adj ,boolean[]vis ,int s,Stack<Integer>st){
+        vis[s]=true;
+        for(int u  : adj.get(s)){
+            if(!vis[u]){
+                DFS(adj,vis,u,st);
+            }
+        }
+        st.push(s);
+    }
+    
+    public void DFS(boolean [] vis , ArrayList<ArrayList<Integer>> adj , int s ){
+        vis[s]=true;
+        
+        for(int i  : adj.get(s)){
+            if(!vis[i]){
+                DFS(vis,adj,i);
+            }
+        }
+    }
+    public int kosaraju(ArrayList<ArrayList<Integer>> adj) {
+        // code here
+        cnt=0;
+        boolean [] vis=new boolean[adj.size()];
+        ArrayList<ArrayList<Integer>> rev=new ArrayList<>();
+        
+        for(int i=0;  i<adj.size() ; i++){
+            rev.add(new ArrayList<>());
+        }
+        
+        for(int i=0 ; i<adj.size() ; i++){
+            for(int v : adj.get(i)){
+                rev.get(v).add(i);
+            }
+        }
+        Stack<Integer> st=new Stack<>();
+        
+        for(int i=0 ; i<adj.size() ; i++){
+            if(!vis[i]){
+                DFS(adj,vis,i,st);
+            }
+        }
+        
+        ArrayList<Integer> al=new ArrayList<>();
+        
+        while(!st.isEmpty()){
+            int c=st.pop();
+            al.add(c);
+        }
+        Arrays.fill(vis,false);
+        
+        for(int i : al){
+            if(!vis[i]){
+                cnt++;
+                DFS(vis,rev,i);
+            }
+            
+        }
+        return cnt;
+    }
+}
