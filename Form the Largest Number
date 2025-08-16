@@ -1,0 +1,18 @@
+class Solution {
+    public String findLargest(int[] arr) {
+        // code here
+        Integer[] nums=Arrays.stream(arr).boxed().toArray(Integer[]::new);
+        Arrays.sort(nums , (a,b) ->{
+            String c=a+""+b , d=b+""+a;
+            return d.compareTo(c);
+        });
+        
+        if(nums[0]==0)return "0";
+            StringBuilder st=new StringBuilder();
+    for(int num : nums){
+        st.append(""+num);
+    }
+    return st.toString();
+    }
+    
+}
