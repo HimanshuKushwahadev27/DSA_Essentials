@@ -1,0 +1,54 @@
+class Solution {
+    int time=0;
+    boolean found;
+    public void DFS(ArrayList<ArrayList<Integer>> adj ,  int u , boolean[] vis ,int [] parent ,int [] low ,int [] dist , int c ,int d){
+        vis[u]=true;
+        
+        low[u]=dist[u]=++time;
+        
+        for(int i  : adj.get(u)){
+            if(!vis[i]){
+                parent[i]=u;
+                DFS(adj,i,vis,parent,low,dist,c,d);
+                
+                low[u]=Math.min(low[u],low[i]);
+                
+                if(low[i]>dist[u]){
+                if ((u == c && i == d) || (u == d && i == c)) {
+                        found = true;                }
+            }}else if(i!=parent[u]){
+                low[u]=Math.min(low[u],dist[i]);
+            }
+        
+    }
+    }
+    public boolean isBridge(int V, int[][] edges, int c, int d) {
+        // code here
+        int[] parent=new int[V];
+        int [] low=new int[V];
+        int[] dist=new int[V];
+        boolean [] vis=new boolean[V];
+        
+        
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+        
+        for(int i=0 ; i<V ; i++){
+            adj.add(new ArrayList<>());
+        }
+        
+        for(int i=0 ; i<edges.length ; i++){
+            int u=edges[i][0];
+            int v=edges[i][1];
+            
+            adj.get(u).add(v);
+            adj.get(v).add(u);
+        }
+        
+        for(int i=0 ; i<V ; i++){
+            if(!vis[i]){
+                 DFS(adj, i , vis, parent,low , dist , c , d);
+            }
+        }
+        return found;
+    }
+}
