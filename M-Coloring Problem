@@ -1,0 +1,40 @@
+class Solution {
+    boolean isSafe(ArrayList<ArrayList<Integer>> adj , int node ,int[]col ,int c){
+        for(int i  :adj.get(node)){
+            if(col[i]==c)return false;
+        }
+        return true;
+    }
+    boolean DFS(ArrayList<ArrayList<Integer>> adj , int node ,int [] col ,int m,int V){
+        if(node==V)return true;
+        
+        for(int i =1 ; i<=m ; i++){
+            if(isSafe(adj,node,col,i)){
+                col[node]=i;
+                if(DFS(adj,node+1,col,m,V))return true;
+                col[node]=0;
+            }
+        }
+        return false;
+    }
+    boolean graphColoring(int v, int[][] edges, int m) {
+        // code here
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+        
+        for(int i=0 ; i<v ; i++){
+            adj.add(new ArrayList<>());
+        }
+        
+        for(int i=0; i <edges.length; i++){
+            int u= edges[i][0];
+            int k=edges[i][1];
+            
+            adj.get(u).add(k);
+            adj.get(k).add(u);
+        }
+        
+        int [] color=new int [v];
+        
+        return DFS(adj,0,color,m,v);
+    }
+}
