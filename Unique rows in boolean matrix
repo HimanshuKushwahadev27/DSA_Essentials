@@ -1,0 +1,26 @@
+/*Complete the given function*/
+class GfG {
+    public static ArrayList<ArrayList<Integer>> uniqueRow(int a[][], int r, int c) {
+        // add code here.
+         ArrayList<ArrayList<Integer>> al= new ArrayList<>();
+         
+         Set<String> st=new HashSet<>();
+         int index=0;
+         
+         for(int i=0; i <a.length ; i++){
+             StringBuilder sb=new StringBuilder();
+             for(int j=0 ; j<a[i].length ; j++){
+                 sb.append(a[i][j]);
+             }
+             if(!st.contains(sb.toString())){
+                 st.add(sb.toString());
+                 al.add(new ArrayList<>());
+                 for (int k = 0; k < sb.toString().length(); k++) {
+                   al.get(index).add(Character.getNumericValue(sb.toString().charAt(k)));
+              } 
+                 index++;
+             }
+         }
+         return al;
+    }
+}
