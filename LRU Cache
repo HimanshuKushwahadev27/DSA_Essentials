@@ -1,0 +1,72 @@
+class Node{
+    int key ;
+    int value;
+    Node prev;
+    Node next;
+    
+    Node(int key , int value  ){
+        this.key=key;
+        this.value=value;
+        this.prev=null;
+        this.next=null;
+    }
+}
+class LRUCache {
+   static  HashMap<Integer , Node> hm;
+    static int capacity;
+    static Node head; 
+    static Node tail;
+    
+    LRUCache(int cap) {
+        // code here
+        hm=new HashMap<>();
+        capacity=cap;
+        head = new Node(-1,-1);
+        tail=new Node(-1,-1);
+        head.next=tail;
+        tail.prev=head;
+    }
+    public static void insertNode(Node node){
+        Node afterNode=head.next;
+        head.next=node;
+        node.next=afterNode;
+        node.prev=head;
+        afterNode.prev=node;
+    }
+    public static void delNode(Node node){
+        Node prevNode=node.prev;
+        Node afterNode=node.next;
+        prevNode.next=afterNode;
+        afterNode.prev=prevNode;
+    }
+    public static int get(int key) {
+     if(!hm.containsKey(key)){
+         return -1;
+     }
+     
+     Node start=hm.get(key);
+     delNode(start);
+     insertNode(start);
+        return start.value;
+    }
+
+        
+    public static void put(int key, int value) {
+        if(hm.containsKey(key)){
+            Node start=hm.get(key);
+            start.value=value;
+            delNode(start);
+            insertNode(start);
+        }
+        else{
+            if(hm.size()==capacity){
+                Node node=tail.prev;
+                hm.remove(node.key);
+                delNode(node);
+            }
+            Node node=new Node(key,value);
+            hm.put(key,node);
+            insertNode(node);
+        }
+    }
+}
