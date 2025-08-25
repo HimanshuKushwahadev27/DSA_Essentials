@@ -1,0 +1,29 @@
+class Solution {
+    public int maximizeMedian(int[] arr, int k) {
+        // code here
+        PriorityQueue<Integer> pq=new PriorityQueue<>();
+        
+        int n=arr.length;
+        
+        if(n%2==0)pq.add(arr[(n/2)-1]);
+        
+        for(int i=n/2 ; i<n ; i++){
+            pq.add(arr[i]);
+        }
+        
+        
+        for(int i=0 ; i<k ; i++){
+            int v=pq.poll();
+            v+=1;
+            pq.add(v);
+        }
+        
+        if(n%2==0){
+            int v=pq.poll();
+            v+=pq.poll();
+            return v/2;
+        }
+        
+        return pq.poll();
+    }
+}
