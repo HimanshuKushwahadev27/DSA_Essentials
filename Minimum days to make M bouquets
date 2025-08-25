@@ -1,0 +1,36 @@
+class Solution {
+    public int minDaysBloom(int[] arr, int k, int m) {
+        // code here
+        if(k*m>arr.length)return -1;
+        
+        int high=Arrays.stream(arr).max().getAsInt();
+        int low=Arrays.stream(arr).min().getAsInt();
+        
+        while(low<=high){
+            int min=(low+high)/2;
+            
+            int numofflow=0;
+            int numofboq=0;
+            
+            for(int i=0; i<arr.length ; i++){
+                if(arr[i]<=min){
+                    numofflow++;
+                }else{
+                    numofflow=0;
+                }
+                if(numofflow==k){
+                    numofflow=0;
+                    numofboq++;
+                }
+            }
+            
+            if(numofboq<m){
+                low=min+1;
+            }else{
+                high=min-1;
+            }
+            
+        }
+        return low;
+    }
+}
