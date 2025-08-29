@@ -1,0 +1,48 @@
+// User function Template for Java
+class node{
+    int v ;
+    int dist;
+    node(int v , int dist){
+        this.v=v;
+        this.dist=dist;
+    }
+}
+class Solution {
+    static int minThrow(int n, int arr[]) {
+        // code here
+        int move[] =new int[31];
+        
+        Arrays.fill(move,-1);
+        for(int i=0 ; i<n ; i++){
+            move[arr[2*i]]=arr[(2*i)+1];
+        }
+        
+        Queue<node> q= new LinkedList<>();
+        boolean [] vis=new boolean[31];
+        node m =new node(1,0);
+        vis[1]=true;
+        q.add(m);
+        
+        while(!q.isEmpty()){
+            m=q.poll();
+            int l=m.v;
+            if(l==30){
+                break;
+            }
+            
+            for(int i=l+1 ; i<=l+6 && i<=30 ; i++){
+                if(!vis[i]){
+                    vis[i]=true;
+                    node k =new node(0,m.dist+1);
+                    if(move[i]!=-1){
+                        k.v=move[i];
+                    }else{
+                        k.v=i;
+                    }
+                    q.add(k);
+                }
+            }
+        }
+                    return m.dist;
+    }
+}
