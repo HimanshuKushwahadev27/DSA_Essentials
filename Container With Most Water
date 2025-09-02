@@ -1,0 +1,19 @@
+class Solution {
+    public int maxWater(int arr[]) {
+        // Code Here
+        int low=0;
+        int high=arr.length-1;
+        int ans=0;
+        
+        while(low<=high){
+            int temp=Math.min(arr[low],arr[high])*(high-low);
+            
+            ans=Math.max(ans,temp);
+            
+            if(arr[low]<arr[high])low++;
+            else high--;
+            
+        }
+        return ans;
+    }
+}
